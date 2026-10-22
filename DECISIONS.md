@@ -43,3 +43,25 @@ Choices made while building, where PLAN.md was silent or reality differed.
   - `BadgeDefinition.sortOrder`;
   - `BadgeAward.periodKey` defaults to `""` for one-off badges, so the unique key works in SQLite (NULLs are treated as distinct there).
 - **Vitest config is `vitest.config.mts`** because the project is CommonJS.
+
+## Step 3: Mock data
+
+- **Output:** `data/donations.csv` (~25.7K rows), `data/subscriptions.csv` (~900), `data/companies.json` (50). Deterministic (seed `20260701`), committed to git. Regenerate with `npm run generate-data`; `npm run data:stats` prints the calibration report.
+- **Donors: 2,525** = 20 personas (`D0001`–`D0020`) + 2,500 background (`D0021`–`D2520`) + 5 donors that User14 refers (`D2521`–`D2525`).
+- **Personas are named `User1`…`User20`** with emails `userN@demo.alumnusb.test`. Background donors have anonymous Latin-American mock names at `@example.org`.
+- **Calibration** (tuned with `data:stats`, locked in by tests):
+  - about $957K raised before launch, close to the ~$945K the real site reports;
+  - the $1M mark is crossed on 2026-08-11, inside the demo window (N30);
+  - 630–810 donors give in each demo month (target 600–900);
+  - about 480 recurring subscriptions are active at launch.
+  - Levers: `FIRST_GIFT_SKEW`, `ONE_TIME_SCALE`, `RECURRING_SHARE`, `REPEAT_PROBABILITY` in `scripts/generate-mock-data.ts`.
+- **Background gifts are capped at $1,000** and background recurring plans top out at $250/month, so persona-sized gifts win Donor of the Week/Month. User1 wins July, August, October and December; User7 wins September. No background donor has a $500/month plan, so Diamond Recurring is only ever User1.
+- **Annual plans** are capped at $50/month equivalent ($600/year). A $250/month plan billed yearly would be a $3,000 charge.
+- **User14 refers 5 donors, not 2** (PLAN.md section 5 said 2), so both Recruiter (first referral, Aug) and Super Recruiter (5th, Dec) are demonstrable.
+- **Subscription changes are modelled as two subscriptions.** User4 reactivates as a *new* $100 plan and User9 raises $45 to $50 as a *new* plan; the old ones get an `end_date`. Streaks and tiers are per donor, not per subscription.
+- **Failed cards in the background data:** failed charge rows; 40% are fixed within a few days, 20% later, 40% never. Never-fixed ones leave the subscription `failed` (feeds the at-risk list).
+- **Subscription `status` in the CSV** is derived from the rows at the end of the data (2026-12-31), informational only. The app recomputes status "as of" the simulated date.
+- **Matching gifts:** about 3% of donors get a `matching_gift` row 7–30 days after a one-time gift, in about 80% of the years they gave since 2019.
+- **Companies are fictional** ("Orinoco Tech", …) on purpose: no claims about real employers' matching programs.
+- **Not produced by data (simulated later by `verify-coverage`, step 8):** badges that need UI actions: social follows (SO1–SO6, claim then admin approval), Proud Supporter (a share), Early Adopter (first login), plus notifications N24/N25 (claim review) and N31 (first login).
+- **Open point for step 7:** a period "closes" when `asOf` reaches its last day, so the December and 2026 year-close items fire on 2026-12-31 (the end of the demo range).

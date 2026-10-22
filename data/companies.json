@@ -1,0 +1,252 @@
+[
+  {
+    "name": "Orinoco Tech",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Andes Energy Partners",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Caribe Logistics",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Avila Software",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Guaire Financial Group",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Tepuy Aerospace",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Morrocoy Hospitality",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Roraima Mining",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Libertador Insurance",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Cumbre Pharma",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Sabana Foods",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Maracay Motors",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Altamira Consulting",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Lago Telecom",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Paria Shipping",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Canaima Outdoor",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Merida Biotech",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Los Roques Travel",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Valencia Steelworks",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Barlovento Cacao",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Zulia Petrochemicals",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Margarita Resorts",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Aragua Agritech",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Falcon Wind Energy",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Bolivar Capital",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Cordillera Analytics",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Delta Water Systems",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Esequibo Marine",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Fundacion Norte Bank",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Gran Sabana Media",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Hato Verde Dairy",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Isla Azul Cruises",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Jirajara Textiles",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
+    "name": "Kavanayen Labs",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Llanero Cattle Co",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Mirador Health",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Naiguata Robotics",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Oriente Gas",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Pico Naiguata Gear",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Quebrada Seca Brewing",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Rio Caroni Power",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Sierra Nevada Coffee",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Tacarigua Cement",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Urbana Real Estate",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Vigia Security",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Yaracuy Sugar",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Zamora Legal Partners",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Alfa Medios",
+    "matches": false,
+    "platform": null
+  },
+  {
+    "name": "Beta Soluciones",
+    "matches": true,
+    "platform": "Other"
+  },
+  {
+    "name": "Gamma Ingenieria",
+    "matches": true,
+    "platform": "Benevity"
+  }
+]

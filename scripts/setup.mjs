@@ -14,6 +14,10 @@ if (!existsSync(".env")) {
   console.log("Created .env from .env.example");
 }
 
+if (!existsSync("data/donations.csv") || !existsSync("data/subscriptions.csv")) {
+  run("npm run generate-data");
+}
+
 run("npx prisma migrate deploy");
 run("npx prisma generate");
 run("npm run db:seed");
