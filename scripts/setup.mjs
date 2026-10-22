@@ -1,5 +1,5 @@
 // `npm run setup`: prepares a fresh clone for `npm run dev`.
-// Later steps append: generate mock CSVs, import them, seed users, run the pipeline.
+// Later steps append: seed users, run the pipeline.
 
 import { execSync } from "node:child_process";
 import { copyFileSync, existsSync } from "node:fs";
@@ -21,5 +21,6 @@ if (!existsSync("data/donations.csv") || !existsSync("data/subscriptions.csv")) 
 run("npx prisma migrate deploy");
 run("npx prisma generate");
 run("npm run db:seed");
+run("npm run import");
 
 console.log("\nSetup finished.");

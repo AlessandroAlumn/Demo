@@ -13,7 +13,8 @@
     "db:seed": "tsx prisma/seed.ts",
     "setup": "node scripts/setup.mjs",
     "generate-data": "tsx scripts/generate-mock-data.ts",
-    "data:stats": "tsx scripts/stats-mock-data.ts"
+    "data:stats": "tsx scripts/stats-mock-data.ts",
+    "import": "tsx scripts/import-csv.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

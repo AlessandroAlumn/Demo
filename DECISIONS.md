@@ -65,3 +65,17 @@ Choices made while building, where PLAN.md was silent or reality differed.
 - **Companies are fictional** ("Orinoco Tech", …) on purpose: no claims about real employers' matching programs.
 - **Not produced by data (simulated later by `verify-coverage`, step 8):** badges that need UI actions: social follows (SO1–SO6, claim then admin approval), Proud Supporter (a share), Early Adopter (first login), plus notifications N24/N25 (claim review) and N31 (first login).
 - **Open point for step 7:** a period "closes" when `asOf` reaches its last day, so the December and 2026 year-close items fire on 2026-12-31 (the end of the demo range).
+
+## Step 4: Importer
+
+- **`src/lib/importer.ts`** is the single implementation behind `npm run import` and the backoffice upload (step 11). `runImport(db, { donationsCsv?, subscriptionsCsv? }, { dryRun })` returns a report with new / updated / unchanged counts, row-numbered issues and donor counts. A dry run writes nothing; the backoffice preview calls it with `dryRun: true`, then again for the confirm.
+- **Donations are upserted by `donation_id`; subscriptions are replaced entirely**, as planned. A subscriptions-only or donations-only upload works.
+- **Invalid rows are skipped, not fatal.** The valid rows still import and the report lists each problem with its CSV line number and field. The CLI exits with code 1 if there were any problems, so scripts notice.
+- **Donor fields are derived, not trusted from one file.**
+  - Name and email come from the donor's latest donation row.
+  - `firstDonationDate` is the earliest *succeeded* donation (all rows if none succeeded), combined with what is already in the DB, so a "newest rows only" file never moves a donor's first gift forward.
+  - `referredBy` comes from the earliest row that carries one.
+- **Everything runs in one transaction** (donors, donations, then subscriptions), so a crash leaves the previous data intact.
+- **Tests use a throwaway SQLite file** built from the real migration SQL (`prisma/migrations/*`), never the dev DB. One test imports the full generated mock data twice and asserts the second run changes nothing.
+- **Dry-run donor counts are an estimate** (computed from file + DB before writing). Differences from the real run are possible only if an *updated* row moves a donor's earliest date.
+- `npm run setup` now runs the import after the seed.
