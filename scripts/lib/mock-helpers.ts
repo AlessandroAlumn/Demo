@@ -31,36 +31,11 @@ export type SubRow = {
 
 export type DonorInfo = { id: string; name: string; email: string };
 
-// ---------- dates (ISO "YYYY-MM-DD", UTC) ----------
-
-const pad = (n: number) => String(n).padStart(2, "0");
-export const toDate = (s: string) => new Date(`${s}T00:00:00Z`);
-export const toIso = (d: Date) => d.toISOString().slice(0, 10);
-
-export function addDays(s: string, n: number): string {
-  const d = toDate(s);
-  d.setUTCDate(d.getUTCDate() + n);
-  return toIso(d);
-}
-
-export function daysBetween(a: string, b: string): number {
-  return Math.round((toDate(b).getTime() - toDate(a).getTime()) / 86_400_000);
-}
-
-export function daysInMonth(year: number, month1: number): number {
-  return new Date(Date.UTC(year, month1, 0)).getUTCDate();
-}
-
-/** Adds `n` months, keeping `day` (default: the date's own day) clamped to the month length. */
-export function addMonths(s: string, n: number, day?: number): string {
-  const [y, m, d] = s.split("-").map(Number);
-  const total = y * 12 + (m - 1) + n;
-  const ny = Math.floor(total / 12);
-  const nm = (total % 12) + 1;
-  return `${ny}-${pad(nm)}-${pad(Math.min(day ?? d, daysInMonth(ny, nm)))}`;
-}
-
-export const monthKey = (s: string) => s.slice(0, 7);
+// ---------- dates ----------
+// The date helpers live in src/lib/dates.ts (shared with the engine).
+import { addDays, addMonths, daysBetween, monthKey } from "../../src/lib/dates";
+export { addDays, addMonths, daysBetween, monthKey };
+export { daysInMonth, toDate, toIso } from "../../src/lib/dates";
 
 // ---------- seeded PRNG ----------
 

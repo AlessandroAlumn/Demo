@@ -257,6 +257,20 @@ const sameSubscription = (a: SubscriptionInput, b: SubscriptionInput) =>
   a.donorId === b.donorId && a.amountUsd === b.amountUsd && a.frequency === b.frequency &&
   a.startDate === b.startDate && a.endDate === b.endDate && a.status === b.status;
 
+/** The Donation columns of an input row (name and email belong to the donor, not the donation). */
+const donationData = (d: DonationInput) => ({
+  id: d.id,
+  donorId: d.donorId,
+  date: d.date,
+  amountUsd: d.amountUsd,
+  method: d.method,
+  program: d.program,
+  campaign: d.campaign,
+  status: d.status,
+  subscriptionId: d.subscriptionId,
+  referredBy: d.referredBy,
+});
+
 const chunk = <T>(items: T[], size: number): T[][] => {
   const out: T[][] = [];
   for (let i = 0; i < items.length; i += size) out.push(items.slice(i, i + size));
@@ -417,11 +431,11 @@ export async function runImport(
 
       for (const part of chunk(toCreate, 500)) {
         await tx.donation.createMany({
-          data: part.map(({ email: _email, name: _name, ...d }) => d),
+          data: part.map(donationData),
         });
       }
       for (const d of toUpdate) {
-        const { id, email: _email, name: _name, ...data } = d;
+        const { id, ...data } = donationData(d);
         await tx.donation.update({ where: { id }, data });
       }
 
