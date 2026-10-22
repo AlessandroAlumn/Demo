@@ -79,3 +79,15 @@ Choices made while building, where PLAN.md was silent or reality differed.
 - **Tests use a throwaway SQLite file** built from the real migration SQL (`prisma/migrations/*`), never the dev DB. One test imports the full generated mock data twice and asserts the second run changes nothing.
 - **Dry-run donor counts are an estimate** (computed from file + DB before writing). Differences from the real run are possible only if an *updated* row moves a donor's earliest date.
 - `npm run setup` now runs the import after the seed.
+
+## Step 5: Login and sessions
+
+- **Accounts:** `scripts/seed-users.ts` (`npm run seed:users`, also run by `npm run setup`) creates `admin` and `User1`…`User20` linked to donors `D0001`…`D0020`, each with referral code `USERn`. It refuses to run if the donors are missing (run the import first). It also gives User15 the Ambassador badge as a *manual* award, which "Reset demo" will keep.
+- **No passwords.** The password input exists but the server action never reads it; the page says so. Login names match case-insensitively and ignore surrounding spaces (`" user10 "` works).
+- **Session = signed cookie** (`alumnusb_session`): `base64url(JSON{uid, role, exp}).HMAC-SHA256`, built on Node's `crypto` (no JWT dependency). HttpOnly, SameSite=Lax, 7 days, `Secure` only in production. Verified with `timingSafeEqual`. `SESSION_SECRET` comes from `.env` (16+ chars); a dev-only fallback is used if it is missing and **production refuses to start without one**.
+- **Guards, in two layers.** `src/proxy.ts` is an optimistic check (no cookie, no pages except `/login`). The real check is `getCurrentUser()` in the `(app)` layout: it verifies the signature, re-reads the user from the DB and compares the role, so a forged cookie or one left from a re-seeded database is rejected. `/admin` additionally requires `role = admin`; a donor who types the URL goes to their dashboard, and an admin opening `/dashboard` goes to `/admin`.
+- **`redirectTo(href, locale)`** in `src/i18n/navigation.ts` wraps next-intl's `redirect` (typed `void`) as `never`, so `if (!user) redirectTo(...)` narrows the type.
+- **`User.firstLoginAt`** is set to the simulated date on first login. The Welcome notification (N31) and the Early Adopter badge (B-X2) will be derived from it in steps 7-8.
+- **The header** now shows the real simulated date (`getToday()`), the user, nav and a sign-out button. The home page `/[locale]` only redirects (login, dashboard or admin).
+- **Dashboard and admin pages are placeholders** (donor id, first donation, demo date) until steps 9 and 11.
+- **Verified over HTTP against the running dev server:** logged-out redirects, form-POST login for donor and admin (303 to the right place), unknown/empty username errors in Spanish, role guards both ways, forged cookie rejected with no redirect loop, logout clears the cookie.

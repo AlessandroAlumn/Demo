@@ -1,5 +1,5 @@
 // `npm run setup`: prepares a fresh clone for `npm run dev`.
-// Later steps append: seed users, run the pipeline.
+// Later steps append: run the pipeline.
 
 import { execSync } from "node:child_process";
 import { copyFileSync, existsSync } from "node:fs";
@@ -22,5 +22,6 @@ run("npx prisma migrate deploy");
 run("npx prisma generate");
 run("npm run db:seed");
 run("npm run import");
+run("npm run seed:users");
 
 console.log("\nSetup finished.");

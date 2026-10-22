@@ -14,7 +14,8 @@
     "setup": "node scripts/setup.mjs",
     "generate-data": "tsx scripts/generate-mock-data.ts",
     "data:stats": "tsx scripts/stats-mock-data.ts",
-    "import": "tsx scripts/import-csv.ts"
+    "import": "tsx scripts/import-csv.ts",
+    "seed:users": "tsx scripts/seed-users.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

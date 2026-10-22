@@ -2,14 +2,34 @@
   "Brand": { "name": "AlumnUSB", "tagline": "Juntos por la Universidad Simón Bolívar" },
   "Header": {
     "demo": "DEMO · hoy es {date}",
-    "language": "Idioma"
+    "language": "Idioma",
+    "dashboard": "Mi panel",
+    "admin": "Administración",
+    "logout": "Cerrar sesión"
   },
-  "Home": {
-    "title": "Tu impacto, tu posición, tus logros",
-    "subtitle": "La plataforma de gamificación de AlumnUSB está en construcción.",
-    "sampleRank": "Tu posición este mes",
-    "sampleRankValue": "#258 de 2.500 · Top 11%",
-    "sampleBadge": "Recurrente Oro",
-    "cta": "Donar en alumnusb.org"
+  "Login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Entra para ver tu impacto, tu posición y tus insignias.",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "passwordPlaceholder": "No se usa en la demo",
+    "demoNote": "Modo demostración: la contraseña es solo un marcador y se ignora.",
+    "submit": "Entrar",
+    "tryUsers": "Prueba con",
+    "errors": {
+      "empty": "Escribe un nombre de usuario.",
+      "unknownUser": "Ese usuario no existe. Usa User1 a User20, o admin."
+    }
+  },
+  "Dashboard": {
+    "welcome": "Hola, {name}",
+    "placeholder": "Tu panel con donaciones, posición y logros está en construcción.",
+    "donorId": "ID de donante",
+    "firstDonation": "Primera donación",
+    "today": "Fecha de la demo"
+  },
+  "Admin": {
+    "title": "Administración",
+    "placeholder": "El backoffice está en construcción."
   }
 }

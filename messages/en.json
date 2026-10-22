@@ -2,14 +2,34 @@
   "Brand": { "name": "AlumnUSB", "tagline": "Together for Universidad Simón Bolívar" },
   "Header": {
     "demo": "DEMO · today is {date}",
-    "language": "Language"
+    "language": "Language",
+    "dashboard": "My dashboard",
+    "admin": "Admin",
+    "logout": "Sign out"
   },
-  "Home": {
-    "title": "Your impact, your rank, your achievements",
-    "subtitle": "The AlumnUSB gamification platform is under construction.",
-    "sampleRank": "Your rank this month",
-    "sampleRankValue": "#258 of 2,500 · Top 11%",
-    "sampleBadge": "Gold Recurring",
-    "cta": "Donate at alumnusb.org"
+  "Login": {
+    "title": "Sign in",
+    "subtitle": "Sign in to see your impact, your rank and your badges.",
+    "username": "Username",
+    "password": "Password",
+    "passwordPlaceholder": "Not used in the demo",
+    "demoNote": "Demo mode: the password is only a placeholder and is ignored.",
+    "submit": "Sign in",
+    "tryUsers": "Try",
+    "errors": {
+      "empty": "Enter a username.",
+      "unknownUser": "Unknown user. Use User1 to User20, or admin."
+    }
+  },
+  "Dashboard": {
+    "welcome": "Hello, {name}",
+    "placeholder": "Your dashboard with donations, rank and achievements is under construction.",
+    "donorId": "Donor ID",
+    "firstDonation": "First donation",
+    "today": "Demo date"
+  },
+  "Admin": {
+    "title": "Admin",
+    "placeholder": "The backoffice is under construction."
   }
 }
