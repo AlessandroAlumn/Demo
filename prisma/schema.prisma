@@ -1,0 +1,187 @@
+// AlumnUSB gamification prototype: local SQLite database.
+//
+// Conventions
+// - Date-only fields (donation date, simulated "today", snapshot dates) are ISO strings
+//   "YYYY-MM-DD". They sort correctly as text and never shift with the host timezone.
+// - Enum-like fields are plain strings; the allowed values live in src/lib/constants.ts.
+// - JSON fields hold structured data (badge rules, notification params, settings).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// A person who has donated. Derived from the donations CSV (includes ~2,500 background donors).
+model Donor {
+  id                String         @id // e.g. "D0001"
+  email             String
+  name              String
+  firstDonationDate String // ISO date
+  referredBy        String? // donor id, from the first donation's referred_by
+  donations         Donation[]
+  subscriptions     Subscription[]
+  user              User?
+  badgeAwards       BadgeAward[]
+  rankSnapshots     RankSnapshot[]
+
+  @@index([email])
+}
+
+/// Mirrors donations.csv. One row per charge attempt; upserted by id.
+model Donation {
+  id             String  @id // donation_id (permanent)
+  donorId        String
+  date           String // ISO date
+  amountUsd      Float
+  method         String // card | paypal | zelle | check | crypto | matching_gift
+  program        String
+  campaign       String?
+  status         String // succeeded | failed
+  subscriptionId String?
+  referredBy     String?
+  donor          Donor   @relation(fields: [donorId], references: [id])
+
+  @@index([donorId, date])
+  @@index([date])
+  @@index([subscriptionId])
+}
+
+/// Mirrors subscriptions.csv. Replaced entirely on each import.
+model Subscription {
+  id        String  @id // subscription_id
+  donorId   String
+  amountUsd Float
+  frequency String // monthly | annual
+  startDate String
+  endDate   String?
+  status    String // status reported by the CSV; the app recomputes status "as of" a date
+  donor     Donor   @relation(fields: [donorId], references: [id])
+
+  @@index([donorId])
+}
+
+/// Login account. User1-User20 are donors, "admin" is the backoffice user.
+model User {
+  id                 String         @id @default(cuid())
+  username           String         @unique
+  role               String // donor | admin
+  donorId            String?        @unique
+  locale             String         @default("es")
+  alias              String? // shown on share cards instead of the real name
+  gamificationOptOut Boolean        @default(false)
+  firstLoginAt       String? // simulated date of first login
+  referralCode       String?        @unique
+  donor              Donor?         @relation(fields: [donorId], references: [id])
+  notifications      Notification[]
+  socialClaims       SocialClaim[]
+  shareEvents        ShareEvent[]
+}
+
+/// One of the 50 badges (B-*). Rules and texts are editable from the backoffice.
+model BadgeDefinition {
+  id         String       @id // "B-M1"
+  category   String // milestone | recurring | streak | competition | loyalty | program | matching | social | special
+  nameEs     String
+  nameEn     String
+  descEs     String
+  descEn     String
+  rule       Json // { type: "...", ...thresholds }; shapes in src/lib/badge-rules.ts
+  icon       String // emoji
+  tier       String? // bronze | silver | gold | platinum | diamond
+  repeatable Boolean      @default(false)
+  manualOnly Boolean      @default(false)
+  active     Boolean      @default(true)
+  sortOrder  Int          @default(0)
+  awards     BadgeAward[]
+}
+
+model BadgeAward {
+  id         String          @id @default(cuid())
+  donorId    String
+  badgeId    String
+  awardedAt  String // simulated ISO date
+  periodKey  String          @default("") // "2026-W31", "2026-08", "2026", a campaign slug, or "" for one-off badges
+  source     String          @default("auto") // auto | manual
+  donor      Donor           @relation(fields: [donorId], references: [id])
+  badge      BadgeDefinition @relation(fields: [badgeId], references: [id])
+
+  @@unique([donorId, badgeId, periodKey])
+  @@index([badgeId])
+}
+
+/// Latest rank per donor, ranking and period (plus month-start all-time rows for Biggest Climber).
+model RankSnapshot {
+  id          String @id @default(cuid())
+  donorId     String
+  ranking     String // monthly | yearly | alltime
+  periodKey   String // "2026-08", "2026", "all", or "start:2026-08" for month-start all-time rows
+  asOfDate    String
+  rank        Int
+  totalRanked Int
+  points      Float
+  donor       Donor  @relation(fields: [donorId], references: [id])
+
+  @@unique([donorId, ranking, periodKey])
+  @@index([ranking, periodKey])
+}
+
+/// Stored as type + params, never as rendered text, so a language switch re-renders old items.
+model Notification {
+  id        String  @id @default(cuid())
+  userId    String
+  type      String // "N1" … "N31"
+  params    Json
+  createdAt String // simulated ISO date
+  seq       Int // tiebreak for ordering within a simulated day
+  readAt    String?
+  dedupeKey String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+}
+
+model SocialClaim {
+  id         String  @id @default(cuid())
+  userId     String
+  network    String // instagram | tiktok | x | youtube | facebook
+  status     String  @default("pending") // pending | approved | rejected
+  createdAt  String
+  reviewedAt String?
+  user       User    @relation(fields: [userId], references: [id])
+
+  @@index([status])
+}
+
+model ShareEvent {
+  id        String @id @default(cuid())
+  userId    String
+  badgeId   String
+  network   String // whatsapp | x | facebook | linkedin | instagram
+  createdAt String
+  user      User   @relation(fields: [userId], references: [id])
+}
+
+/// Admin-authored feed content: news and campaigns (bilingual).
+model Post {
+  id          String  @id @default(cuid())
+  kind        String // news | campaign
+  titleEs     String
+  titleEn     String
+  bodyEs      String
+  bodyEn      String
+  campaign    String? // campaign slug
+  goalAmount  Float?
+  startDate   String?
+  endDate     String?
+  publishedAt String // simulated ISO date the post becomes visible
+}
+
+/// Key/value JSON settings (simulated date, point weights, thresholds…).
+model Setting {
+  key   String @id
+  value Json
+}

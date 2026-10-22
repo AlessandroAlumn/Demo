@@ -28,3 +28,18 @@ Choices made while building, where PLAN.md was silent or reality differed.
 - **Logos** are in `public/brand/`: `logo-white.png` (header, 300×94), `logo-white-full.png` (613×192) and `logo.png` (dark logo for light backgrounds, 1024×321).
 - Tier colors (bronze, silver, platinum, diamond) are my own picks. The site has none. Gold reuses brand yellow.
 - The header is black with the white logo, like the main site.
+
+## Step 2: Schema
+
+- **Date-only fields are ISO strings** (`"2026-07-01"`), not `DateTime`. They sort as text and the simulated "today" never shifts with the host timezone.
+- **Enum-like columns are plain strings.** The allowed values are in `src/lib/constants.ts`, and the importer validates them.
+- **Badge count is 50** (not 44 as first said in chat): the spec has 50 `B-*` rows and 31 `N*` rows. `src/lib/badge-definitions.ts` holds all 50 with machine-readable `rule` JSON. A Vitest test fails if its IDs differ from `BADGES_AND_NOTIFICATIONS.md`.
+- **Badge texts with placeholders:** `B-P9` ("Campaign Hero: {campaign}") and `B-G1` ("Double Impact {year}") keep the `{campaign}` / `{year}` tokens in the stored name. The UI substitutes the award's `periodKey`.
+- **Seed is idempotent and non-destructive.** It inserts only missing settings and badges, so edits made in the backoffice survive a re-seed.
+- **Users are not seeded yet.** They need the donors from the importer (step 4) and are created in step 5.
+- **Extra columns beyond PLAN.md section 6:**
+  - `Donor.referredBy` and `User.referralCode` (referral badges);
+  - `Notification.seq` (stable order within a simulated day);
+  - `BadgeDefinition.sortOrder`;
+  - `BadgeAward.periodKey` defaults to `""` for one-off badges, so the unique key works in SQLite (NULLs are treated as distinct there).
+- **Vitest config is `vitest.config.mts`** because the project is CommonJS.
