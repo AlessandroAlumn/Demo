@@ -147,7 +147,7 @@ describe("importer", () => {
     expect(first.donations.issues).toEqual([]);
     expect(first.subscriptions.issues).toEqual([]);
     expect(first.donations.new).toBe(first.donations.total);
-    expect(first.donors.new).toBe(2525);
+    expect(first.donors.new).toBe(500);
 
     const second = await runImport(db, files);
     expect(second.donations).toMatchObject({ new: 0, updated: 0, unchanged: first.donations.total });

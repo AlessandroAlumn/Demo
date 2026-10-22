@@ -1,38 +1,38 @@
 [
   {
     "name": "Orinoco Tech",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Andes Energy Partners",
-    "matches": false,
-    "platform": null
+    "matches": true,
+    "platform": "Benevity"
   },
   {
     "name": "Caribe Logistics",
     "matches": true,
-    "platform": "Double the Donation"
+    "platform": "Benevity"
   },
   {
     "name": "Avila Software",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Guaire Financial Group",
     "matches": true,
-    "platform": "Double the Donation"
+    "platform": "Benevity"
   },
   {
     "name": "Tepuy Aerospace",
-    "matches": false,
-    "platform": null
+    "matches": true,
+    "platform": "Double the Donation"
   },
   {
     "name": "Morrocoy Hospitality",
-    "matches": false,
-    "platform": null
+    "matches": true,
+    "platform": "Double the Donation"
   },
   {
     "name": "Roraima Mining",
@@ -41,18 +41,18 @@
   },
   {
     "name": "Libertador Insurance",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Cumbre Pharma",
-    "matches": true,
-    "platform": "Double the Donation"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Sabana Foods",
-    "matches": true,
-    "platform": "Double the Donation"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Maracay Motors",
@@ -61,8 +61,8 @@
   },
   {
     "name": "Altamira Consulting",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Lago Telecom",
@@ -71,8 +71,8 @@
   },
   {
     "name": "Paria Shipping",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Canaima Outdoor",
@@ -87,17 +87,17 @@
   {
     "name": "Los Roques Travel",
     "matches": true,
-    "platform": "Benevity"
+    "platform": "Double the Donation"
   },
   {
     "name": "Valencia Steelworks",
     "matches": true,
-    "platform": "Double the Donation"
+    "platform": "Other"
   },
   {
     "name": "Barlovento Cacao",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Zulia Petrochemicals",
@@ -111,23 +111,23 @@
   },
   {
     "name": "Aragua Agritech",
-    "matches": false,
-    "platform": null
-  },
-  {
-    "name": "Falcon Wind Energy",
-    "matches": false,
-    "platform": null
-  },
-  {
-    "name": "Bolivar Capital",
     "matches": true,
     "platform": "Double the Donation"
   },
   {
+    "name": "Falcon Wind Energy",
+    "matches": true,
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Bolivar Capital",
+    "matches": true,
+    "platform": "Benevity"
+  },
+  {
     "name": "Cordillera Analytics",
-    "matches": false,
-    "platform": null
+    "matches": true,
+    "platform": "Double the Donation"
   },
   {
     "name": "Delta Water Systems",
@@ -136,13 +136,13 @@
   },
   {
     "name": "Esequibo Marine",
-    "matches": false,
-    "platform": null
+    "matches": true,
+    "platform": "Benevity"
   },
   {
     "name": "Fundacion Norte Bank",
-    "matches": false,
-    "platform": null
+    "matches": true,
+    "platform": "Benevity"
   },
   {
     "name": "Gran Sabana Media",
@@ -161,8 +161,8 @@
   },
   {
     "name": "Jirajara Textiles",
-    "matches": true,
-    "platform": "Benevity"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Kavanayen Labs",
@@ -176,13 +176,13 @@
   },
   {
     "name": "Mirador Health",
-    "matches": true,
-    "platform": "Double the Donation"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Naiguata Robotics",
     "matches": true,
-    "platform": "Double the Donation"
+    "platform": "Benevity"
   },
   {
     "name": "Oriente Gas",
@@ -201,18 +201,18 @@
   },
   {
     "name": "Rio Caroni Power",
-    "matches": true,
-    "platform": "Double the Donation"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Sierra Nevada Coffee",
-    "matches": true,
-    "platform": "Double the Donation"
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Tacarigua Cement",
     "matches": true,
-    "platform": "Double the Donation"
+    "platform": "Other"
   },
   {
     "name": "Urbana Real Estate",
@@ -227,26 +227,26 @@
   {
     "name": "Yaracuy Sugar",
     "matches": true,
-    "platform": "Double the Donation"
+    "platform": "Benevity"
   },
   {
     "name": "Zamora Legal Partners",
-    "matches": true,
-    "platform": "Double the Donation"
-  },
-  {
-    "name": "Alfa Medios",
     "matches": false,
     "platform": null
   },
   {
-    "name": "Beta Soluciones",
+    "name": "Alfa Medios",
     "matches": true,
-    "platform": "Other"
+    "platform": "Double the Donation"
+  },
+  {
+    "name": "Beta Soluciones",
+    "matches": false,
+    "platform": null
   },
   {
     "name": "Gamma Ingenieria",
     "matches": true,
-    "platform": "Benevity"
+    "platform": "Double the Donation"
   }
 ]

@@ -21,9 +21,12 @@ describe("mock data: shape", () => {
     expect(generateMockData()).toEqual(data);
   });
 
-  it("has ~2,500 background donors plus the 20 personas and 5 referred donors", () => {
-    expect(data.donors).toHaveLength(2525);
-    expect(new Set(data.donors.map((d) => d.id)).size).toBe(2525);
+  it("has 500 donors: the 20 personas, 5 referred donors and 475 background donors", () => {
+    expect(data.donors).toHaveLength(500);
+    expect(new Set(data.donors.map((d) => d.id)).size).toBe(500);
+    const ids = new Set(data.donors.map((d) => d.id));
+    expect(ids.has("D0500")).toBe(true); // the 5th referred donor
+    expect(ids.has("D0501")).toBe(false);
   });
 
   it("uses unique donation ids and valid values everywhere", () => {
@@ -53,22 +56,23 @@ describe("mock data: shape", () => {
 
   it("has rows before and after the demo launch, so the time machine has something to reveal", () => {
     expect(data.donations.some((d) => d.date < LAUNCH_DATE)).toBe(true);
-    expect(data.donations.filter((d) => d.date >= LAUNCH_DATE).length).toBeGreaterThan(2000);
+    expect(data.donations.filter((d) => d.date >= LAUNCH_DATE).length).toBeGreaterThan(800);
   });
 
-  it("raises roughly what the site reports before launch and crosses $1M during the demo", () => {
+  it("raises about $180K before launch and crosses the $200K and $225K milestones during the demo", () => {
     let total = 0;
     let before = 0;
-    let crossed = "";
+    const crossed = new Map<number, string>();
     for (const d of data.donations) {
       if (d.status !== "succeeded") continue;
       total += d.amountUsd;
       if (d.date < LAUNCH_DATE) before = total;
-      if (!crossed && total >= 1_000_000) crossed = d.date;
+      for (const m of [150_000, 200_000, 225_000]) if (!crossed.has(m) && total >= m) crossed.set(m, d.date);
     }
-    expect(before).toBeGreaterThan(850_000);
-    expect(before).toBeLessThan(1_000_000);
-    expect(crossed >= LAUNCH_DATE && crossed <= DATA_END).toBe(true);
+    expect(before).toBeGreaterThan(150_000);
+    expect(before).toBeLessThan(200_000);
+    expect(crossed.get(150_000)! < LAUNCH_DATE).toBe(true);
+    for (const m of [200_000, 225_000]) expect(crossed.get(m)! >= LAUNCH_DATE && crossed.get(m)! <= DATA_END).toBe(true);
   });
 
   it("keeps ordinary background gifts below the persona-sized gifts", () => {

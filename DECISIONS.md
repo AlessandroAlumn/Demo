@@ -143,3 +143,15 @@ Pure functions in `src/lib/engine/`; no Prisma, no real clock. The pipeline (ste
 - **UI actions** (`demo-actions.ts`) are the same functions the screens will call in steps 10-11: `recordFirstLogin` (already used by the login action), `submitSocialClaim`, `reviewSocialClaim`, `recordShare`. Each stamps the simulated date and, by default, refreshes today so the result is visible immediately.
 - **`npm run verify-coverage`** runs the whole demo on a **temporary copy** of the dev database (your demo state is untouched), simulates the UI actions on the way (a first login, a share, five approved follows, one rejected), and fails if any badge or notification type is missing. Result: **50/50 badges and 30/30 stored notification types** (all but the UI-only N2), about 30 s.
 - **Tests added:** detectors (21), the end-to-end pipeline on a temporary DB (19: baseline, idempotency, persona timelines, cache = recompute, throttle, UI actions, +1 month speed, end clamp, reset and deterministic replay). Suite: 197 tests.
+
+## Scale change: 500 donors (after step 8)
+
+The mock data was cut from 2,525 donors to **500**, to keep the demo simple. This supersedes the numbers in the step 3, 6 and 8 notes above.
+
+- **Donors: 500** = 20 personas (`D0001`-`D0020`) + 475 background (`D0021`-`D0495`) + the 5 donors User14 refers (now `D0496`-`D0500`). About 5,000 donation rows and 182 subscriptions. One constant (`BACKGROUND_DONORS`) controls it.
+- **Persona timelines are unchanged** (they are hand-built). Active donors per month are about 130-170 in the demo window, so ranks read like "#52 of 145" instead of "#258 of 2,500", and Top 10% means about 15 donors.
+- **Money:** about $180K raised before launch and $231K by the end of December (it was ~$957K / $1.17M; the real site reports ~$945K, so the mock no longer matches it). Gift sizes were not scaled up, to keep the persona stories (a $2,000 gift winning Donor of the Month) intact.
+- **Organisation milestones are now a setting** (`orgMilestones`, default $150K, $200K, $225K, $250K), because they depend on the dataset. The demo crosses $200K on Sep 9 and $225K on Dec 13 (N30). The campaign goal is now **$1,800** (about $1,650 is raised): 50% in August, 75% in October, and the "ending soon" reminder on Dec 26.
+- **Existing databases must be rebuilt**: the importer upserts and never deletes, so re-importing a smaller file leaves old donors behind. `rm prisma/dev.db && npm run setup` rebuilds it (tested).
+- **Effects:** the whole demo runs in ~9 s (was ~32 s), the baseline in 0.2 s, the test suite in ~12 s (was ~41 s). Coverage is still 50/50 badges and 30/30 stored notification types.
+- **Heads-up:** with fewer donors, neighbours in the ranking are closer in points, so the standalone "you're only $X from #N" nudge (N6) fires often (about 46 per user over six months with the 7-day cooldown). `gapNudgeThresholdUsd` and `gapNudgeCooldownDays` tune it.

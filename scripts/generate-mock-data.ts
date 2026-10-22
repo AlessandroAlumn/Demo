@@ -3,7 +3,7 @@
 //
 //   npm run generate-data
 //
-// Layout: 20 hand-built personas (scripts/personas.ts) + ~2,500 anonymous background donors
+// Layout: 20 hand-built personas (scripts/personas.ts) + 475 anonymous background donors (500 donors in total)
 // across 2016-01-01 .. 2026-12-31. Rows dated after the demo launch (2026-07-01) are intended:
 // they "appear" as the simulated date advances.
 
@@ -28,7 +28,7 @@ import {
 import { buildPersonas } from "./personas";
 
 export const SEED = 20260701;
-export const BACKGROUND_DONORS = 2500;
+export const BACKGROUND_DONORS = 475;
 export const EARTHQUAKE_CAMPAIGN = "emergencia-sismo-2026";
 
 const FIRST_NAMES = [

@@ -65,7 +65,6 @@ type Db = PrismaClient | Prisma.TransactionClient;
 /** The demo ends with the generated data. */
 export const DEMO_END_DATE = "2026-12-31";
 const RANKINGS: Ranking[] = ["monthly", "yearly", "alltime"];
-const ORG_MILESTONES = [250_000, 500_000, 750_000, 1_000_000, 1_250_000, 1_500_000, 2_000_000];
 const CAMPAIGN_THRESHOLDS = [50, 75, 100];
 const CAMPAIGN_ENDING_DAYS = 5;
 const FOLLOW_BADGE: Record<string, string> = {
@@ -522,7 +521,7 @@ function stepDay(world: World, day: string, baseline: boolean): DayOutput {
         }
       }
     }
-    for (const milestone of ORG_MILESTONES) {
+    for (const milestone of settings.orgMilestones) {
       if (world.orgTotal < milestone && orgAfter >= milestone) {
         drafts.push({
           donorId: u.donorId, type: "N30", date: day, params: { milestoneUsd: milestone },

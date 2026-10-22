@@ -25,7 +25,7 @@ export type PersonaData = {
 };
 
 export const PERSONA_COUNT = 20;
-export const REFERRED_BY_USER14 = ["D2521", "D2522", "D2523", "D2524", "D2525"];
+export const REFERRED_BY_USER14 = ["D0496", "D0497", "D0498", "D0499", "D0500"];
 
 export const donorIdForUser = (n: number) => `D${String(n).padStart(4, "0")}`;
 

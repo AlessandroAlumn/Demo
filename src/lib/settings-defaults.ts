@@ -27,6 +27,8 @@ export type AppSettings = {
   lapsedMonths: number;
   matchingReminderMonthDay: string;
   earlyAdopterDays: number;
+  /** Organisation-wide totals (USD) that trigger the "together we passed $X" notification (N30). */
+  orgMilestones: number[];
   impactEquivalences: { usd: number; key: string }[];
 };
 
@@ -69,6 +71,9 @@ export const SETTING_DEFAULTS: AppSettings = {
   lapsedMonths: 6,
   matchingReminderMonthDay: "09-01",
   earlyAdopterDays: 30,
+
+  /** Tuned to the 500-donor mock data (about $180K at launch, $231K by the end of December). */
+  orgMilestones: [150_000, 200_000, 225_000, 250_000],
 
   /** Placeholder impact equivalences, shown as "≈" lines. The UI marks them as placeholders. */
   impactEquivalences: [

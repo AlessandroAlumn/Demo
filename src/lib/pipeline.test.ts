@@ -54,7 +54,7 @@ describe("baseline day", () => {
   it("stores everything already earned silently: no notifications", async () => {
     const result = await resetDemo(db);
     expect(result).toMatchObject({ from: "2026-07-01", to: "2026-07-01", days: 1, notifications: 0 });
-    expect(result.awards).toBeGreaterThan(10_000);
+    expect(result.awards).toBeGreaterThan(1_500);
     expect(await db.notification.count()).toBe(0);
     expect(await getDemoState(db)).toMatchObject({ today: "2026-07-01", lastProcessed: "2026-07-01" });
   }, 120_000);
@@ -218,13 +218,11 @@ describe("later in the demo", () => {
     expect(rows[2].params).toMatchObject({ tier: "silver", streak: 16 });
   }, 180_000);
 
-  it("campaign launch and the $1M milestone reach every user (N28 on Aug 1, N30 on Aug 11)", async () => {
+  it("the campaign launch reaches every user (N28 on Aug 1)", async () => {
     const users = await db.user.findMany({ where: { role: "donor" } });
     for (const u of users) {
       const rows = await db.notification.findMany({ where: { userId: u.id } });
       expect(rows.find((r) => r.type === "N28")?.createdAt, `${u.username} N28`).toBe("2026-08-01");
-      const milestone = rows.find((r) => r.type === "N30");
-      expect(milestone, `${u.username} N30`).toMatchObject({ createdAt: "2026-08-11", params: { milestoneUsd: 1_000_000 } });
     }
   });
 
@@ -236,7 +234,13 @@ describe("later in the demo", () => {
     expect(result.days).toBe(31);
     expect(seconds).toBeLessThan(15);
 
-    // Campaign progress: 50% of the $9,500 goal was reached by the end of August, 75% is not there yet.
+    // The organisation passed $200K on Sep 9: everyone is told (N30).
+    for (const u of await db.user.findMany({ where: { role: "donor" } })) {
+      const milestone = (await db.notification.findMany({ where: { userId: u.id, type: "N30" } }))[0];
+      expect(milestone, `${u.username} N30`).toMatchObject({ createdAt: "2026-09-09", params: { milestoneUsd: 200_000 } });
+    }
+
+    // Campaign progress: 50% of the $1,800 goal was reached in August, 75% is not there yet.
     const user1 = await feed("User1");
     const progress = user1.filter((r) => r.type === "N29").map((r) => (r.params as { pct: number }).pct);
     expect(progress).toEqual([50]);

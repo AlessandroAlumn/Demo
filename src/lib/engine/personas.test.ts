@@ -101,8 +101,8 @@ describe("persona subscriptions", () => {
 describe("rankings over the mock data", () => {
   it("ranks only donors who gave in the month, a realistic crowd for July 2026", () => {
     const july = computeRankings(histories, events, "2026-07-31", S).monthly;
-    expect(july.entries[0].totalRanked).toBeGreaterThan(600);
-    expect(july.entries[0].totalRanked).toBeLessThan(900);
+    expect(july.entries[0].totalRanked).toBeGreaterThan(100);
+    expect(july.entries[0].totalRanked).toBeLessThan(200);
     expect(july.byDonor.get(id(1))!.rank).toBe(1); // User1: $500 recurring + $1,500 gift
     expect(july.byDonor.get(id(10))).toBeUndefined(); // User10 is lapsed: not ranked
     expect(july.byDonor.get(id(1))!.gapToNext).toBeNull();
@@ -140,12 +140,12 @@ describe("rankings over the mock data", () => {
     expect(mine.map((e) => e.date.slice(0, 7))).toEqual(["2026-08", "2026-09", "2026-10", "2026-11", "2026-12"]);
   });
 
-  it("computes all three rankings for 2,500+ donors fast enough for the daily pipeline", () => {
+  it("computes all three rankings for all 500 donors fast enough for the daily pipeline", () => {
     const started = Date.now();
     const r = computeRankings(histories, events, "2026-12-31", S);
     const ms = Date.now() - started;
     console.log(`computeRankings(2026-12-31): ${ms} ms, donors ranked: monthly ${r.monthly.entries.length}, yearly ${r.yearly.entries.length}, all-time ${r.alltime.entries.length}`);
-    expect(r.alltime.entries.length).toBeGreaterThan(2400);
+    expect(r.alltime.entries.length).toBeGreaterThan(480);
     expect(r.yearly.entries.length).toBeLessThanOrEqual(r.alltime.entries.length);
     expect(ms).toBeLessThan(15_000);
   }, 60_000);

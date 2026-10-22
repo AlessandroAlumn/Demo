@@ -184,8 +184,8 @@ describe("period-close winners", () => {
     expect(closing.filter((a) => a.badgeId === "B-C5" && a.periodKey === "2026-08")).toHaveLength(1);
     expect(closing.filter((a) => a.badgeId === "B-C3")).toHaveLength(10);
     const topPct = closing.filter((a) => a.badgeId === "B-C4").length;
-    expect(topPct).toBeGreaterThan(55);
-    expect(topPct).toBeLessThan(90);
+    expect(topPct).toBeGreaterThanOrEqual(10); // the top tenth of ~145 ranked donors
+    expect(topPct).toBeLessThanOrEqual(22);
     expect(closing.find((a) => a.badgeId === "B-C3" && a.donorId === id(1))).toBeDefined();
   });
 
@@ -203,7 +203,7 @@ describe("period-close winners", () => {
 });
 
 describe("volume and speed", () => {
-  it("evaluates every state badge for 2,500+ donors in reasonable time, with unique award keys", () => {
+  it("evaluates every state badge for all 500 donors in reasonable time, with unique award keys", () => {
     const started = Date.now();
     const awards = stateAwards(input, "2026-12-31");
     const ms = Date.now() - started;

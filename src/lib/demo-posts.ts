@@ -1,5 +1,5 @@
 // Bilingual demo content for the feed (admin posts and one campaign). Seeded idempotently by title.
-// The campaign goal is tuned to the mock data (about $9,000 raised by the end of November) so the
+// The campaign goal is tuned to the mock data (about $1,650 raised by the end of November) so the
 // 50% and 75% progress notifications and the "ending soon" reminder all appear in the demo.
 
 import type { PrismaClient } from "@prisma/client";
@@ -32,7 +32,7 @@ export const DEMO_POSTS: DemoPost[] = [
     kind: "campaign",
     publishedAt: "2026-08-01",
     campaign: "emergencia-sismo-2026",
-    goalAmount: 9500,
+    goalAmount: 1800,
     startDate: "2026-08-01",
     endDate: "2026-12-31",
     titleEs: "Ayuda para los afectados por el sismo",

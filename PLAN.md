@@ -143,11 +143,11 @@ The generator must be **deterministic** (fixed seed). Write its output to `data/
 
 - **Date range:** donations from **2016-01-01** to **2026-12-31**.
   - Future-dated rows are intended. They "appear" as the simulated date advances.
-- **About 2,500 background donors**, with anonymous mock names.
+- **500 donors in total** (decided later, to keep the demo simple): 475 background donors with anonymous mock names, plus the 20 personas and the 5 donors User14 refers.
   - About 30% are recurring: mostly $20–$50/month, a few at $100, $250 and $500+, and some annual.
   - One-time gifts follow a log-normal spread of about $10–$2,000.
   - Spread first-donation dates across the years. Include churn and a few failures.
-  - Aim for roughly 600–900 donors with a donation in any given month.
+  - Aim for roughly 120–180 donors with a donation in any given month.
   - Spread donations across all programs. Weight them toward `becas`.
   - Put about 5% of donors in the `emergencia-sismo-2026` campaign, Aug–Nov 2026.
   - Give about 3% of donors a yearly `matching_gift` row.
@@ -181,7 +181,7 @@ Design the data so that **stepping the time machine from 2026-07-01 to 2026-12-3
 | User17 | Near-identical totals to User18; they overtake each other several times | Frequent N4/N5 with small moves (#215 → #214), N6 gap |
 | User18 | User17's rival | Same as User17 |
 | User19 | Annual recurring $600/year (= $50/month) | Silver via annual normalization |
-| User20 | Occasional $10 gifts; near the bottom of the ranking | An honest low rank (e.g. "#2,310 of 2,500"), Top 10% never reached |
+| User20 | Occasional $10 gifts; near the bottom of the ranking | An honest low rank (e.g. "#130 of 140"), Top 10% never reached |
 
 Also cover these with at least one persona each:
 - Monthly Top 10 and Top 10%
@@ -320,7 +320,7 @@ Admin time-machine controls (in Settings and in a small floating admin bar):
 
 Time can only move forward, except through Reset.
 
-Performance target: +1 month with about 2,500 donors in under about 10 seconds. Optimize with in-memory computation per step, so you aren't doing per-row DB queries.
+Performance target: +1 month with a few thousand donors (the demo uses 500) in under about 10 seconds. Optimize with in-memory computation per step, so you aren't doing per-row DB queries.
 
 **Unit tests (Vitest)** are required for:
 - points, including caps;
@@ -346,7 +346,7 @@ A small "DEMO · today is {simulatedToday}" chip.
 | Page | Content |
 |---|---|
 | `/login` | Username + password (placeholder, ignored) + language toggle. A hint lists `User1`–`User20` and `admin`. |
-| `/dashboard` | Payment-problem **banner** (N12/N13) when relevant. **Totals:** lifetime, this year, this month. **3 rank cards** (Monthly, Yearly, All-time): "#258 of 2,500 · Top 11%", the change since the last update (⬆/⬇), and the gap line. **Recurring status card:** amount, tier, active/paused/inactive, streak, next-tier nudge. Recent badges. Impact equivalence. Latest feed items. |
+| `/dashboard` | Payment-problem **banner** (N12/N13) when relevant. **Totals:** lifetime, this year, this month. **3 rank cards** (Monthly, Yearly, All-time): "#52 of 500 · Top 11%", the change since the last update (⬆/⬇), and the gap line. **Recurring status card:** amount, tier, active/paused/inactive, streak, next-tier nudge. Recent badges. Impact equivalence. Latest feed items. |
 | `/donations` | Personal history table: date, amount, program, campaign, method, status. Totals per program. |
 | `/badges` | All badges grouped by category: earned (with date and ×count) or locked (with progress, e.g. "$180 / $250"). Rarity %. Click a badge for its detail and a **Share** button. |
 | `/feed` | Full notification list. Mark as read / mark all as read. Admin posts and campaign cards with progress bars. |
@@ -400,7 +400,7 @@ Keep the importer and the engine cleanly separated, so a real data source can re
 
 1. **Scaffold.** Next.js + TS + Tailwind + Prisma (SQLite) + next-intl + Vitest. Theme extraction (section 3) and tokens. Layout with header and ES/EN toggle. **Check:** `/es` and `/en` render with the brand look.
 2. **Schema.** Prisma models (section 6), migration, settings seed, badge definitions seeded from BADGES_AND_NOTIFICATIONS.md.
-3. **Mock data.** The generator and personas (sections 4.4 and 5). **Check:** CSVs exist, about 2,500 donors, personas present.
+3. **Mock data.** The generator and personas (sections 4.4 and 5). **Check:** CSVs exist, 500 donors, personas present.
 4. **Importer.** CLI + library, with idempotency test. **Check:** importing twice gives "0 new".
 5. **Login and sessions.** Cookie-based. Route guards for donor vs admin.
 6. **Engine.** `subscriptions`, `points`, `rankings`, with tests.
