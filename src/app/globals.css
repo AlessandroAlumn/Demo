@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/*
+ * Brand tokens, extracted from alumnusb.org (Elementor global kit, post-19.css).
+ * See DECISIONS.md for the source of each value.
+ */
+@theme {
+  --color-brand-yellow: #f9cf00;
+  --color-brand-yellow-soft: #fdf5cc;
+  --color-brand-blue: #0050b4;
+  --color-brand-black: #111111;
+  --color-brand-text: #1c1c1c;
+  --color-brand-white: #ffffff;
+
+  --color-gray-50: #fcfcfd;
+  --color-gray-100: #eaecf0;
+  --color-gray-200: #d0d5dd;
+  --color-gray-300: #98a2b3;
+  --color-gray-400: #667085;
+  --color-gray-500: #475467;
+  --color-gray-900: #0c111d;
+
+  /* Badge tier colors */
+  --color-tier-bronze: #b9722f;
+  --color-tier-silver: #a7b0bd;
+  --color-tier-gold: #f9cf00;
+  --color-tier-platinum: #5fb4c9;
+  --color-tier-diamond: #6f7bf7;
+
+  --font-serif: var(--font-pt-serif), Georgia, serif;
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
+  --font-accent: var(--font-inter), system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-gray-50);
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+}

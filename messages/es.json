@@ -1,0 +1,15 @@
+{
+  "Brand": { "name": "AlumnUSB", "tagline": "Juntos por la Universidad Simón Bolívar" },
+  "Header": {
+    "demo": "DEMO · hoy es {date}",
+    "language": "Idioma"
+  },
+  "Home": {
+    "title": "Tu impacto, tu posición, tus logros",
+    "subtitle": "La plataforma de gamificación de AlumnUSB está en construcción.",
+    "sampleRank": "Tu posición este mes",
+    "sampleRankValue": "#258 de 2.500 · Top 11%",
+    "sampleBadge": "Recurrente Oro",
+    "cta": "Donar en alumnusb.org"
+  }
+}
