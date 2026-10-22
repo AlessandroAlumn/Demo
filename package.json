@@ -15,7 +15,10 @@
     "generate-data": "tsx scripts/generate-mock-data.ts",
     "data:stats": "tsx scripts/stats-mock-data.ts",
     "import": "tsx scripts/import-csv.ts",
-    "seed:users": "tsx scripts/seed-users.ts"
+    "seed:users": "tsx scripts/seed-users.ts",
+    "demo": "tsx scripts/demo.ts",
+    "inspect": "tsx scripts/inspect.ts",
+    "verify-coverage": "tsx scripts/verify-coverage.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

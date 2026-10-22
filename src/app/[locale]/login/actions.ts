@@ -4,7 +4,7 @@ import { hasLocale } from "next-intl";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { createSession, destroySession } from "@/lib/auth";
-import { getToday } from "@/lib/clock";
+import { recordFirstLogin } from "@/lib/demo-actions";
 import { db } from "@/lib/db";
 import { normalizeUsername } from "@/lib/session";
 
@@ -27,10 +27,8 @@ export async function loginAction(_prev: LoginState, formData: FormData): Promis
   const user = users.find((u) => normalizeUsername(u.username) === wanted);
   if (!user) return { error: "unknownUser", username: typed };
 
-  if (!user.firstLoginAt) {
-    // Recorded now; the welcome notification and Early Adopter badge are derived from it (step 8).
-    await db.user.update({ where: { id: user.id }, data: { firstLoginAt: await getToday() } });
-  }
+  // First login: stamps the simulated date, then the pipeline adds the welcome notification and Early Adopter badge.
+  if (user.role === "donor") await recordFirstLogin(db, user.id);
   await createSession(user);
 
   redirect({ href: user.role === "admin" ? "/admin" : "/dashboard", locale });

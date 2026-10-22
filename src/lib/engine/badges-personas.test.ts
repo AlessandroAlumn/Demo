@@ -174,7 +174,9 @@ describe("period-close winners", () => {
 
   it("Donor of the Week: User1 wins the week of his $1,500 gift (closes Sunday Jul 26)", () => {
     const winners = on("2026-07-26").filter((a) => a.badgeId === "B-C1");
-    expect(winners).toEqual([{ donorId: id(1), badgeId: "B-C1", periodKey: "2026-W30", awardedAt: "2026-07-26" }]);
+    expect(winners).toEqual([
+      { donorId: id(1), badgeId: "B-C1", periodKey: "2026-W30", awardedAt: "2026-07-26", meta: { amountUsd: 1500 } },
+    ]);
   });
 
   it("closes a month with one Biggest Climber, ten Top-10 donors and a Top 10% group", () => {

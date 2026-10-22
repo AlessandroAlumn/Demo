@@ -1,11 +1,40 @@
 // Default values for the admin-editable Setting rows (PLAN.md section 6 and
 // BADGES_AND_NOTIFICATIONS.md "Impact Points"). The seed inserts only the keys that are missing.
 
-export const SETTING_DEFAULTS = {
+export type AppSettings = {
+  launchDate: string;
+  simulatedToday: string;
+  /** "" until the first (baseline) day has been processed. */
+  lastProcessedDate: string;
+  points: {
+    oneTimePerDollar: number;
+    recurringPerDollar: number;
+    matchingPerDollar: number;
+    streakBonusPerMonth: number;
+    streakBonusMaxPerMonth: number;
+    engagementPerAction: number;
+    engagementMaxPerMonth: number;
+  };
+  recurringTiers: { recurring: number; silver: number; gold: number; platinum: number; diamond: number };
+  graceDays: number;
+  failureWindowDaysMonthly: number;
+  failureWindowDaysAnnual: number;
+  gapNudgeThresholdUsd: number;
+  gapNudgeCooldownDays: number;
+  /** Minimum days between "someone passed you" notifications per ranking (0 = every move). */
+  rankDownCooldownDays: number;
+  nextMilestoneNudgePct: number;
+  lapsedMonths: number;
+  matchingReminderMonthDay: string;
+  earlyAdopterDays: number;
+  impactEquivalences: { usd: number; key: string }[];
+};
+
+export const SETTING_DEFAULTS: AppSettings = {
   /** Demo clock. The engine never reads the real clock. */
   launchDate: "2026-07-01",
   simulatedToday: "2026-07-01",
-  lastProcessedDate: "2026-07-01",
+  lastProcessedDate: "",
 
   /** Impact Points weights. */
   points: {
@@ -35,6 +64,7 @@ export const SETTING_DEFAULTS = {
   /** Notification tuning. */
   gapNudgeThresholdUsd: 20,
   gapNudgeCooldownDays: 7,
+  rankDownCooldownDays: 7,
   nextMilestoneNudgePct: 10,
   lapsedMonths: 6,
   matchingReminderMonthDay: "09-01",
@@ -46,6 +76,6 @@ export const SETTING_DEFAULTS = {
     { usd: 150, key: "teacherAwardShare" },
     { usd: 50, key: "transportWeek" },
   ],
-} as const;
+};
 
-export type SettingKey = keyof typeof SETTING_DEFAULTS;
+export type SettingKey = keyof AppSettings;

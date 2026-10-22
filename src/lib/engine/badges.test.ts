@@ -297,7 +297,7 @@ describe("period-close awards", () => {
     expect(periodCloseAwards(input, "2026-07-25")).toEqual([]); // Saturday
     const sunday = periodCloseAwards(input, "2026-07-26");
     expect(sunday.filter((a) => a.badgeId === "B-C1")).toEqual([
-      { donorId: "A", badgeId: "B-C1", periodKey: "2026-W30", awardedAt: "2026-07-26" },
+      { donorId: "A", badgeId: "B-C1", periodKey: "2026-W30", awardedAt: "2026-07-26", meta: { amountUsd: 1500 } },
     ]);
   });
 

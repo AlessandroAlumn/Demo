@@ -55,6 +55,8 @@ export type AwardCandidate = {
   /** "" for one-off badges; "2026-W31", "2026-08", "2026", or a campaign slug for repeatable ones. */
   periodKey: string;
   awardedAt: string;
+  /** Extra facts for notifications: { amountUsd } for week/month winners, { gained } for the climber, { years } for anniversaries. */
+  meta?: Record<string, number>;
 };
 
 export type RankingSource = {
@@ -90,13 +92,15 @@ export function createRankingSource(
   histories: Map<string, DonorHistory>,
   events: EngagementEvent[],
   settings: EngineSettings,
+  /** Provide cached per-donor points (the pipeline does); the default recomputes from scratch. */
+  inputsProvider?: (asOf: string) => DonorPeriodInput[],
 ): RankingSource {
   // Per-date inputs are heavy (every donor's monthly points); keep only the latest few.
   const inputCache = new Map<string, DonorPeriodInput[]>();
   const inputsAt = (asOf: string) => {
     let inputs = inputCache.get(asOf);
     if (!inputs) {
-      inputs = computeAllMonthlyPoints(histories, events, asOf, settings);
+      inputs = inputsProvider ? inputsProvider(asOf) : computeAllMonthlyPoints(histories, events, asOf, settings);
       inputCache.set(asOf, inputs);
       if (inputCache.size > 3) inputCache.delete(inputCache.keys().next().value!);
     }
@@ -200,7 +204,7 @@ const dateTotalReached = (facts: DonorFacts, usd: number) =>
 
 // ---------- state badges ----------
 
-type Hit = { periodKey: string; earnedOn: string };
+type Hit = { periodKey: string; earnedOn: string; meta?: Record<string, number> };
 
 /** Hits for one rule given a donor's facts. Empty if not earned. Period-close rules are handled elsewhere. */
 export function evaluateStateRule(
@@ -235,7 +239,7 @@ export function evaluateStateRule(
       for (let k = 1; ; k++) {
         const date = addMonths(facts.firstDonationDate, 12 * k, day);
         if (date > facts.asOf) break;
-        if (date >= input.eventsFrom) hits.push({ periodKey: date.slice(0, 4), earnedOn: date });
+        if (date >= input.eventsFrom) hits.push({ periodKey: date.slice(0, 4), earnedOn: date, meta: { years: k } });
       }
       return hits;
     }
@@ -312,7 +316,10 @@ export function stateAwards(input: BadgeInput, day: string): AwardCandidate[] {
     });
     for (const def of defs) {
       for (const hit of evaluateStateRule(def.rule, facts, input)) {
-        awards.push({ donorId: history.donorId, badgeId: def.id, periodKey: hit.periodKey, awardedAt: hit.earnedOn });
+        awards.push({
+          donorId: history.donorId, badgeId: def.id, periodKey: hit.periodKey, awardedAt: hit.earnedOn,
+          ...(hit.meta ? { meta: hit.meta } : {}),
+        });
       }
     }
   }
@@ -373,20 +380,24 @@ export function periodCloseAwards(input: BadgeInput, day: string): AwardCandidat
   const defs = input.defs.filter((d) => d.active && !d.manualOnly);
   const ofType = <T extends BadgeRule["type"]>(type: T) =>
     defs.filter((d): d is BadgeDef & { rule: Extract<BadgeRule, { type: T }> } => d.rule.type === type);
-  const add = (donorId: string, badgeId: string, periodKey: string) =>
-    awards.push({ donorId, badgeId, periodKey, awardedAt: day });
+  const add = (donorId: string, badgeId: string, periodKey: string, meta?: Record<string, number>) =>
+    awards.push({ donorId, badgeId, periodKey, awardedAt: day, ...(meta ? { meta } : {}) });
 
   // A week closes on its Sunday.
   if (toDate(day).getUTCDay() === 0) {
     const winner = topDonorByAmount(input.histories, addDays(day, -6), day);
-    if (winner) for (const def of ofType("donor_of_week")) add(winner.donorId, def.id, isoWeekKey(day));
+    if (winner) {
+      for (const def of ofType("donor_of_week")) add(winner.donorId, def.id, isoWeekKey(day), { amountUsd: winner.amount });
+    }
   }
 
   // A month closes on its last day.
   const ym = monthKey(day);
   if (day === lastDayOfMonth(ym)) {
     const winner = topDonorByAmount(input.histories, `${ym}-01`, day);
-    if (winner) for (const def of ofType("donor_of_month")) add(winner.donorId, def.id, ym);
+    if (winner) {
+      for (const def of ofType("donor_of_month")) add(winner.donorId, def.id, ym, { amountUsd: winner.amount });
+    }
 
     const topN = ofType("monthly_top_n");
     const topPct = ofType("monthly_top_pct");
@@ -402,7 +413,7 @@ export function periodCloseAwards(input: BadgeInput, day: string): AwardCandidat
     if (climbers.length) {
       const previousMonthEnd = addDays(`${ym}-01`, -1);
       const climber = biggestClimber(input.rankings.allTimeAt(previousMonthEnd), input.rankings.allTimeAt(day));
-      if (climber) for (const def of climbers) add(climber.donorId, def.id, ym);
+      if (climber) for (const def of climbers) add(climber.donorId, def.id, ym, { gained: climber.gained });
     }
   }
 

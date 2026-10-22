@@ -28,12 +28,17 @@ const emptyBreakdown = (): PointsBreakdown => ({
   oneTime: 0, recurring: 0, matching: 0, streakBonus: 0, engagement: 0, total: 0,
 });
 
-/** Points per calendar month ("YYYY-MM") for one donor, counting data up to `asOf`. */
+/**
+ * Points per calendar month ("YYYY-MM") for one donor, counting data up to `asOf`.
+ * `fromMonth` skips earlier months: closed months never change, so the pipeline computes them
+ * once and only recomputes the current month each simulated day.
+ */
 export function monthlyPoints(
   history: DonorHistory,
   events: EngagementEvent[],
   asOf: string,
   settings: EngineSettings,
+  fromMonth?: string,
 ): Map<string, PointsBreakdown> {
   const w = settings.points;
   const months = new Map<string, PointsBreakdown>();
@@ -45,8 +50,10 @@ export function monthlyPoints(
   const recurringMonths = new Set<string>();
 
   for (const d of history.donations) {
-    if (d.status !== "succeeded" || d.date > asOf) continue;
+    if (d.date > asOf) break; // donations are sorted by date
+    if (d.status !== "succeeded") continue;
     const m = monthKey(d.date);
+    if (fromMonth && m < fromMonth) continue;
     const b = get(m);
     if (d.method === "matching_gift") b.matching += d.amountUsd * w.matchingPerDollar;
     else if (d.subscriptionId) {
@@ -65,6 +72,7 @@ export function monthlyPoints(
   for (const e of events) {
     if (e.date > asOf) continue;
     const m = monthKey(e.date);
+    if (fromMonth && m < fromMonth) continue;
     perMonth.set(m, (perMonth.get(m) ?? 0) + 1);
   }
   for (const [m, count] of perMonth) {
