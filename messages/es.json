@@ -4,8 +4,15 @@
     "demo": "DEMO · hoy es {date}",
     "language": "Idioma",
     "dashboard": "Mi panel",
+    "donations": "Donaciones",
+    "badges": "Insignias",
+    "feed": "Actividad",
     "admin": "Administración",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "notifications": "Notificaciones",
+    "markAllRead": "Marcar todo como leído",
+    "noNotifications": "Aún no tienes notificaciones.",
+    "seeAll": "Ver toda la actividad"
   },
   "Login": {
     "title": "Iniciar sesión",
@@ -21,12 +28,228 @@
       "unknownUser": "Ese usuario no existe. Usa User1 a User20, o admin."
     }
   },
+  "Common": {
+    "donate": "Donar",
+    "seeAll": "Ver todo",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "Programs": {
+    "becas": "Becas estudiantiles",
+    "premio_planchart": "Premio Enrique Planchart a la docencia",
+    "transporte": "Transporte",
+    "infraestructura": "Infraestructura",
+    "fondo_general_emergencia": "Fondo General y de Emergencia",
+    "concurso_proyectos": "Concurso de Proyectos",
+    "eventos": "Eventos"
+  },
+  "Methods": {
+    "card": "Tarjeta",
+    "paypal": "PayPal",
+    "zelle": "Zelle",
+    "check": "Cheque",
+    "crypto": "Cripto",
+    "matching_gift": "Aporte de tu empresa"
+  },
+  "Networks": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "x": "X",
+    "youtube": "YouTube",
+    "facebook": "Facebook"
+  },
+  "Rankings": {
+    "monthly": "mensual",
+    "yearly": "anual",
+    "alltime": "histórico"
+  },
+  "RankingTitles": {
+    "monthly": "Este mes",
+    "yearly": "Este año",
+    "alltime": "Histórico"
+  },
+  "Tiers": {
+    "recurring": "Recurrente",
+    "silver": "Recurrente Plata",
+    "gold": "Recurrente Oro",
+    "platinum": "Recurrente Platino",
+    "diamond": "Recurrente Diamante"
+  },
+  "Categories": {
+    "milestone": "Hitos",
+    "recurring": "Donaciones recurrentes",
+    "streak": "Rachas",
+    "competition": "Rankings y ganadores",
+    "loyalty": "Lealtad",
+    "program": "Programas y campañas",
+    "matching": "Matching gifts",
+    "social": "Comunidad",
+    "special": "Especiales"
+  },
+  "Impact": {
+    "scholarshipMonth": "{units, plural, one {# mes de una beca} other {# meses de una beca}}",
+    "teacherAwardShare": "{units, plural, one {# parte de un premio docente} other {# partes de un premio docente}}",
+    "transportWeek": "{units, plural, one {# semana de transporte estudiantil} other {# semanas de transporte estudiantil}}"
+  },
   "Dashboard": {
     "welcome": "Hola, {name}",
-    "placeholder": "Tu panel con donaciones, posición y logros está en construcción.",
-    "donorId": "ID de donante",
-    "firstDonation": "Primera donación",
-    "today": "Fecha de la demo"
+    "subtitle": "Este es tu impacto con AlumnUSB.",
+    "totals": {
+      "lifetime": "Total donado",
+      "thisYear": "Este año",
+      "thisMonth": "Este mes",
+      "matched": "incluye {amount} igualados por tu empresa"
+    },
+    "ranks": {
+      "title": "Tu posición",
+      "privacy": "Solo tú ves tu posición. Nunca se muestran los nombres ni los montos de otros donantes.",
+      "of": "de {total}",
+      "top": "Top {pct}%",
+      "up": "Subiste {n, plural, one {# puesto} other {# puestos}}",
+      "down": "Bajaste {n, plural, one {# puesto} other {# puestos}}",
+      "gap": "Solo {gap} para llegar al #{next}",
+      "keepLead": "¡Eres el #1! Mantén tu ventaja.",
+      "notRanked": {
+        "monthly": "Dona este mes para entrar al ranking mensual.",
+        "yearly": "Dona este año para entrar al ranking anual.",
+        "alltime": "Haz una donación para entrar al ranking."
+      }
+    },
+    "recurring": {
+      "title": "Donación recurrente",
+      "none": "Aún no tienes una donación recurrente. Empieza una para ganar insignias de nivel y rachas.",
+      "start": "Empezar una donación recurrente",
+      "perMonth": "{amount} / mes",
+      "streak": "{n, plural, one {Racha de # mes} other {Racha de # meses}}",
+      "status": {
+        "active": "Activa",
+        "grace": "En pausa: el pago falló",
+        "inactive": "Inactiva"
+      },
+      "graceLeft": "{n, plural, one {Queda # día} other {Quedan # días}} para solucionarlo",
+      "nextTier": "{gap} más al mes para llegar a {tier}.",
+      "topTier": "¡Estás en el nivel más alto!"
+    },
+    "banner": {
+      "grace": "Tu donación mensual no se está procesando. Tu estatus {tier} y tu racha de {streak, plural, one {# mes} other {# meses}} están en riesgo: {days, plural, one {queda # día} other {quedan # días}} para solucionarlo.",
+      "graceNoTier": "Tu donación mensual no se está procesando. Tu racha de {streak, plural, one {# mes} other {# meses}} está en riesgo: {days, plural, one {queda # día} other {quedan # días}} para solucionarlo.",
+      "inactive": "Tu donación recurrente está inactiva y tu racha se reinició. Tus insignias siguen siendo tuyas: reactívala cuando quieras.",
+      "fix": "Actualizar mi tarjeta",
+      "reactivate": "Reactivar"
+    },
+    "badges": {
+      "title": "Insignias recientes",
+      "seeAll": "Ver todas las insignias",
+      "empty": "Aún no tienes insignias. ¡Tu primera donación te da una!",
+      "count": "{earned} de {total} insignias ganadas"
+    },
+    "impact": {
+      "title": "Tu impacto",
+      "text": "Tus donaciones hasta ahora ≈ {equivalent}",
+      "placeholder": "Equivalencia estimada (valores de ejemplo)."
+    },
+    "activity": {
+      "title": "Actividad reciente",
+      "seeAll": "Ver todo",
+      "empty": "Aún nada. Tu actividad aparece aquí a medida que avanza la demo."
+    }
+  },
+  "Donations": {
+    "title": "Mis donaciones",
+    "subtitle": "Todas las donaciones registradas a tu nombre.",
+    "total": "Total donado",
+    "count": "{n, plural, one {# donación} other {# donaciones}}",
+    "failedNote": "Los cobros fallidos no se cuentan.",
+    "byProgram": "Por programa",
+    "history": "Historial",
+    "empty": "Aún no hay donaciones.",
+    "columns": {
+      "date": "Fecha",
+      "amount": "Monto",
+      "program": "Programa",
+      "campaign": "Campaña",
+      "method": "Método",
+      "status": "Estado"
+    },
+    "status": { "succeeded": "Recibida", "failed": "Fallida" },
+    "recurring": "Recurrente"
+  },
+  "Badges": {
+    "title": "Insignias",
+    "summary": "{earned} de {total} insignias ganadas",
+    "earned": "Ganada el {date}",
+    "earnedTimes": "×{n}",
+    "locked": "Bloqueada",
+    "rarity": "{pct}% de los donantes la tienen",
+    "manual": "Otorgada por el equipo de AlumnUSB",
+    "all": "Todas las insignias",
+    "history": "Cuándo la ganaste",
+    "howTo": "Cómo conseguirla",
+    "yourProgress": "Tu progreso",
+    "notEarned": "Aún no has ganado esta insignia.",
+    "progress": {
+      "usd": "{current} de {target}",
+      "months": "{current} de {target, plural, one {# mes} other {# meses}}",
+      "years": "{current} de {target, plural, one {# año} other {# años}}",
+      "count": "{current} de {target}"
+    }
+  },
+  "Feed": {
+    "title": "Actividad",
+    "subtitle": "Insignias, cambios en el ranking y novedades.",
+    "markAllRead": "Marcar todo como leído",
+    "markRead": "Marcar como leído",
+    "empty": "Aún no hay nada aquí. Tu actividad aparece a medida que avanza la demo.",
+    "allRead": "Estás al día",
+    "unread": "Sin leer",
+    "campaignGoal": "{raised} de {goal}"
+  },
+  "Notifications": {
+    "cta": {
+      "donate": "Donar",
+      "updateCard": "Actualizar mi tarjeta",
+      "reactivate": "Reactivar",
+      "learnHow": "Cómo hacerlo",
+      "profile": "Ir a mi perfil",
+      "badges": "Ver mis insignias"
+    },
+    "N1": "¡Ganaste {badge}!",
+    "N3": "Te faltan {remaining} para {badge}.",
+    "N4": "Subiste en el ranking {ranking}: #{from} → #{to} de {total}.",
+    "N5": "Alguien te pasó en el ranking {ranking}: #{from} → #{to} de {total}.",
+    "N4gap": "Estás a solo {gap} del puesto #{next}.",
+    "N4keepLead": "¡Eres el #1! Mantén tu ventaja.",
+    "N6": "Estás a solo {gap} del puesto #{next} en el ranking {ranking}.",
+    "N7": "Terminaste {month} en el puesto #{rank} de {total} (Top {pct}%).",
+    "N8": "Terminaste {year} en el puesto #{rank} de {total} (Top {pct}%).",
+    "N9": "{kind, select, week {¡Eres el Donante de la Semana!} other {¡Eres el Donante del Mes!}}",
+    "N9detail": "Donaste {amount} en ese período.",
+    "N10": "Fuiste quien más subió en {month}: +{gained, plural, one {# puesto} other {# puestos}}.",
+    "N11": "Hoy empieza el ranking de un nuevo mes. Tu próxima donación te devuelve al ranking.",
+    "N12": "Tu donación mensual no se está procesando. Tu estatus {tier} y tu racha de {streak, plural, one {# mes} other {# meses}} están en riesgo.",
+    "N12noTier": "Tu donación mensual no se está procesando. Tu racha de {streak, plural, one {# mes} other {# meses}} está en riesgo.",
+    "N13": "{daysLeft, plural, one {Queda # día} other {Quedan # días}} para salvar tu racha de {streak, plural, one {# mes} other {# meses}}.",
+    "N14": "Tu racha se reinició y tu estado recurrente ahora está inactivo. Tus insignias siguen siendo tuyas. Reactívalo cuando quieras.",
+    "N15restored": "¡Tu donación volvió a la normalidad! Estado y racha restaurados.",
+    "N15new": "¡Tu donación recurrente está de vuelta! Empieza una nueva racha.",
+    "N16": "¡Subiste a {tier}!",
+    "N17": "Estás a {gap} al mes de {tier}.",
+    "N18": "Recibimos tu donación de {amount} para {program}. ¡Gracias!",
+    "N19": "Tus donaciones hasta ahora ≈ {equivalent}.",
+    "N20": "{years, plural, one {Hace # año} other {Hace # años}} hoy hiciste tu primera donación a AlumnUSB.",
+    "N21": "¡Te extrañamos! Los estudiantes siguen contando contigo.",
+    "N22": "Tu empresa igualó tu donación de {amount}.",
+    "N22badge": "¡{badge} desbloqueada!",
+    "N23": "¿Tu empresa iguala donaciones? Muchas lo hacen con Double the Donation o Benevity.",
+    "N24": "Confirmado: ¡gracias por seguirnos en {network}! +5 pts",
+    "N25": "No pudimos confirmar que nos sigues en {network}. ¿Intentas de nuevo?",
+    "N26": "¡Un amigo que invitaste acaba de donar!",
+    "N26badge": "¡{badge} desbloqueada!",
+    "N28": "Nueva campaña: {title}",
+    "N29pct": "{title}: ¡llegamos al {pct}% de la meta!",
+    "N29ending": "{title}: {pct}% de la meta alcanzado, {daysLeft, plural, one {queda # día} other {quedan # días}}.",
+    "N30": "¡Juntos superamos {amount} recaudados!",
+    "N31": "¡Bienvenido! Aquí tienes tu posición, tus insignias y cómo ganar más."
   },
   "Admin": {
     "title": "Administración",

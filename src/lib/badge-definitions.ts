@@ -69,7 +69,7 @@ const streak = (n: number, months: number, tier: Tier): BadgeSeed => ({
   id: `B-S${n}`,
   category: "streak",
   nameEn: `${months}-Month Streak`,
-  nameEs: `Racha de ${months} Meses`,
+  nameEs: `Racha de ${months} meses`,
   descEn: `${months} consecutive months of successful recurring donations.`,
   descEs: `${months} meses consecutivos de donaciones recurrentes exitosas.`,
   rule: { type: "streak", months },

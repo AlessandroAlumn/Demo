@@ -4,8 +4,15 @@
     "demo": "DEMO · today is {date}",
     "language": "Language",
     "dashboard": "My dashboard",
+    "donations": "Donations",
+    "badges": "Badges",
+    "feed": "Activity",
     "admin": "Admin",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "notifications": "Notifications",
+    "markAllRead": "Mark all as read",
+    "noNotifications": "No notifications yet.",
+    "seeAll": "See all activity"
   },
   "Login": {
     "title": "Sign in",
@@ -21,12 +28,228 @@
       "unknownUser": "Unknown user. Use User1 to User20, or admin."
     }
   },
+  "Common": {
+    "donate": "Donate",
+    "seeAll": "See all",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "Programs": {
+    "becas": "Student scholarships",
+    "premio_planchart": "Enrique Planchart Teaching Award",
+    "transporte": "Transportation",
+    "infraestructura": "Infrastructure",
+    "fondo_general_emergencia": "General and Emergency Fund",
+    "concurso_proyectos": "Project Contest",
+    "eventos": "Events"
+  },
+  "Methods": {
+    "card": "Card",
+    "paypal": "PayPal",
+    "zelle": "Zelle",
+    "check": "Check",
+    "crypto": "Crypto",
+    "matching_gift": "Employer match"
+  },
+  "Networks": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "x": "X",
+    "youtube": "YouTube",
+    "facebook": "Facebook"
+  },
+  "Rankings": {
+    "monthly": "monthly",
+    "yearly": "yearly",
+    "alltime": "all-time"
+  },
+  "RankingTitles": {
+    "monthly": "This month",
+    "yearly": "This year",
+    "alltime": "All time"
+  },
+  "Tiers": {
+    "recurring": "Recurring",
+    "silver": "Silver Recurring",
+    "gold": "Gold Recurring",
+    "platinum": "Platinum Recurring",
+    "diamond": "Diamond Recurring"
+  },
+  "Categories": {
+    "milestone": "Milestones",
+    "recurring": "Recurring donations",
+    "streak": "Streaks",
+    "competition": "Rankings and winners",
+    "loyalty": "Loyalty",
+    "program": "Programs and campaigns",
+    "matching": "Matching gifts",
+    "social": "Community",
+    "special": "Special"
+  },
+  "Impact": {
+    "scholarshipMonth": "{units, plural, one {# month of a scholarship} other {# months of a scholarship}}",
+    "teacherAwardShare": "{units, plural, one {# share of a teaching award} other {# shares of a teaching award}}",
+    "transportWeek": "{units, plural, one {# week of student transportation} other {# weeks of student transportation}}"
+  },
   "Dashboard": {
     "welcome": "Hello, {name}",
-    "placeholder": "Your dashboard with donations, rank and achievements is under construction.",
-    "donorId": "Donor ID",
-    "firstDonation": "First donation",
-    "today": "Demo date"
+    "subtitle": "Here is your impact with AlumnUSB.",
+    "totals": {
+      "lifetime": "Total donated",
+      "thisYear": "This year",
+      "thisMonth": "This month",
+      "matched": "includes {amount} matched by your employer"
+    },
+    "ranks": {
+      "title": "Your position",
+      "privacy": "Only you can see your position. Other donors' names and amounts are never shown.",
+      "of": "of {total}",
+      "top": "Top {pct}%",
+      "up": "Up {n, plural, one {# position} other {# positions}}",
+      "down": "Down {n, plural, one {# position} other {# positions}}",
+      "gap": "Only {gap} to reach #{next}",
+      "keepLead": "You're #1! Keep your lead.",
+      "notRanked": {
+        "monthly": "Donate this month to enter the monthly ranking.",
+        "yearly": "Donate this year to enter the yearly ranking.",
+        "alltime": "Make a donation to enter the ranking."
+      }
+    },
+    "recurring": {
+      "title": "Recurring donation",
+      "none": "You don't have a recurring donation yet. Start one to earn tier badges and streaks.",
+      "start": "Start a recurring donation",
+      "perMonth": "{amount} / month",
+      "streak": "{n}-month streak",
+      "status": {
+        "active": "Active",
+        "grace": "Paused: payment failed",
+        "inactive": "Inactive"
+      },
+      "graceLeft": "{n, plural, one {# day left} other {# days left}} to fix it",
+      "nextTier": "{gap} more per month to reach {tier}.",
+      "topTier": "You're at the top tier!"
+    },
+    "banner": {
+      "grace": "Your monthly donation isn't going through. Your {tier} status and {streak}-month streak are at risk: {days, plural, one {# day} other {# days}} left to fix it.",
+      "graceNoTier": "Your monthly donation isn't going through. Your {streak}-month streak is at risk: {days, plural, one {# day} other {# days}} left to fix it.",
+      "inactive": "Your recurring donation is inactive and your streak was reset. Your badges are still yours: reactivate anytime.",
+      "fix": "Update my card",
+      "reactivate": "Reactivate"
+    },
+    "badges": {
+      "title": "Recent badges",
+      "seeAll": "See all badges",
+      "empty": "No badges yet. Your first donation earns one!",
+      "count": "{earned} of {total} badges earned"
+    },
+    "impact": {
+      "title": "Your impact",
+      "text": "Your donations so far ≈ {equivalent}",
+      "placeholder": "Estimated equivalence (placeholder values)."
+    },
+    "activity": {
+      "title": "Latest activity",
+      "seeAll": "See all",
+      "empty": "Nothing yet. Your activity shows up here as the demo moves forward."
+    }
+  },
+  "Donations": {
+    "title": "My donations",
+    "subtitle": "Every donation recorded for you.",
+    "total": "Total donated",
+    "count": "{n, plural, one {# donation} other {# donations}}",
+    "failedNote": "Failed charges are not counted.",
+    "byProgram": "By program",
+    "history": "History",
+    "empty": "No donations yet.",
+    "columns": {
+      "date": "Date",
+      "amount": "Amount",
+      "program": "Program",
+      "campaign": "Campaign",
+      "method": "Method",
+      "status": "Status"
+    },
+    "status": { "succeeded": "Received", "failed": "Failed" },
+    "recurring": "Recurring"
+  },
+  "Badges": {
+    "title": "Badges",
+    "summary": "{earned} of {total} badges earned",
+    "earned": "Earned {date}",
+    "earnedTimes": "×{n}",
+    "locked": "Locked",
+    "rarity": "{pct}% of donors have it",
+    "manual": "Awarded by the AlumnUSB team",
+    "all": "All badges",
+    "history": "When you earned it",
+    "howTo": "How to earn it",
+    "yourProgress": "Your progress",
+    "notEarned": "You haven't earned this badge yet.",
+    "progress": {
+      "usd": "{current} of {target}",
+      "months": "{current} of {target, plural, one {# month} other {# months}}",
+      "years": "{current} of {target, plural, one {# year} other {# years}}",
+      "count": "{current} of {target}"
+    }
+  },
+  "Feed": {
+    "title": "Activity",
+    "subtitle": "Badges, ranking changes and news.",
+    "markAllRead": "Mark all as read",
+    "markRead": "Mark as read",
+    "empty": "Nothing here yet. Your activity shows up as the demo moves forward.",
+    "allRead": "You're all caught up",
+    "unread": "Unread",
+    "campaignGoal": "{raised} of {goal}"
+  },
+  "Notifications": {
+    "cta": {
+      "donate": "Donate",
+      "updateCard": "Update my card",
+      "reactivate": "Reactivate",
+      "learnHow": "Learn how",
+      "profile": "Go to my profile",
+      "badges": "See my badges"
+    },
+    "N1": "You earned {badge}!",
+    "N3": "You're {remaining} away from {badge}.",
+    "N4": "You moved up in the {ranking} ranking: #{from} → #{to} of {total}.",
+    "N5": "Someone passed you in the {ranking} ranking: #{from} → #{to} of {total}.",
+    "N4gap": "You're only {gap} away from #{next}.",
+    "N4keepLead": "You're #1! Keep your lead.",
+    "N6": "You're only {gap} away from #{next} in the {ranking} ranking.",
+    "N7": "You finished {month} at #{rank} of {total} (Top {pct}%).",
+    "N8": "You finished {year} at #{rank} of {total} (Top {pct}%).",
+    "N9": "{kind, select, week {You're the Donor of the Week!} other {You're the Donor of the Month!}}",
+    "N9detail": "You gave {amount} in that period.",
+    "N10": "You were the biggest climber of {month}: +{gained, plural, one {# position} other {# positions}}.",
+    "N11": "A new month's ranking starts today. Your next donation puts you back on the board.",
+    "N12": "Your monthly donation isn't going through. Your {tier} status and {streak}-month streak are at risk.",
+    "N12noTier": "Your monthly donation isn't going through. Your {streak}-month streak is at risk.",
+    "N13": "{daysLeft, plural, one {# day} other {# days}} left to save your {streak}-month streak.",
+    "N14": "Your streak was reset and your recurring status is now inactive. Your badges are still yours. Reactivate anytime.",
+    "N15restored": "Your donation is back on track! Status and streak restored.",
+    "N15new": "Your recurring donation is back! A new streak starts now.",
+    "N16": "You moved up to {tier}!",
+    "N17": "You're {gap} per month away from {tier}.",
+    "N18": "We received your {amount} donation to {program}. Thank you!",
+    "N19": "Your donations so far ≈ {equivalent}.",
+    "N20": "{years, plural, one {# year} other {# years}} ago today you made your first donation to AlumnUSB.",
+    "N21": "We miss you! Students are still counting on you.",
+    "N22": "Your employer matched your {amount} gift.",
+    "N22badge": "{badge} unlocked!",
+    "N23": "Does your company match donations? Many do through Double the Donation or Benevity.",
+    "N24": "Confirmed: thanks for following us on {network}! +5 pts",
+    "N25": "We couldn't confirm your {network} follow. Try again?",
+    "N26": "A friend you invited just donated!",
+    "N26badge": "{badge} unlocked!",
+    "N28": "New campaign: {title}",
+    "N29pct": "{title}: we reached {pct}% of the goal!",
+    "N29ending": "{title}: {pct}% of the goal reached, {daysLeft, plural, one {# day} other {# days}} left!",
+    "N30": "Together we passed {amount} raised!",
+    "N31": "Welcome! Here's your rank, your badges and how to earn more."
   },
   "Admin": {
     "title": "Admin",

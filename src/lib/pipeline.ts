@@ -120,7 +120,7 @@ type PostRec = {
   id: string; kind: string; campaign: string | null; goalAmount: number | null;
   startDate: string | null; endDate: string | null; publishedAt: string;
 };
-type StoredSnapshot = RankSnap & { points: number };
+type StoredSnapshot = RankSnap & { points: number; gapDollars: number | null; prevRank: number | null };
 
 type World = {
   settings: AppSettings;
@@ -224,7 +224,10 @@ async function loadWorld(db: Db, startDay: string): Promise<World> {
     const existing = snapshots.get(key);
     // Keep the most recent period per donor and ranking.
     if (!existing || s.periodKey >= existing.periodKey) {
-      snapshots.set(key, { periodKey: s.periodKey, rank: s.rank, totalRanked: s.totalRanked, points: s.points });
+      snapshots.set(key, {
+        periodKey: s.periodKey, rank: s.rank, totalRanked: s.totalRanked, points: s.points,
+        gapDollars: s.gapDollars, prevRank: s.prevRank,
+      });
     }
   }
 
@@ -276,7 +279,10 @@ async function loadWorld(db: Db, startDay: string): Promise<World> {
 
 // ---------- one day ----------
 
-type SnapshotUpdate = { donorId: string; ranking: Ranking; periodKey: string; asOfDate: string; rank: number; totalRanked: number; points: number };
+type SnapshotUpdate = {
+  donorId: string; ranking: Ranking; periodKey: string; asOfDate: string;
+  rank: number; totalRanked: number; points: number; gapDollars: number | null; prevRank: number | null;
+};
 type DayOutput = { awards: AwardCandidate[]; drafts: NotificationDraft[]; snapshots: SnapshotUpdate[] };
 
 function stepDay(world: World, day: string, baseline: boolean): DayOutput {
@@ -329,10 +335,17 @@ function stepDay(world: World, day: string, baseline: boolean): DayOutput {
           if (nudge) drafts.push(nudge);
         }
       }
-      if (cur && (!prev || prev.periodKey !== result.period.key || prev.rank !== cur.rank || prev.totalRanked !== cur.totalRanked)) {
+      const gapDollars = cur?.gapToNext?.dollars ?? null;
+      if (
+        cur &&
+        (!prev || prev.periodKey !== result.period.key || prev.rank !== cur.rank ||
+          prev.totalRanked !== cur.totalRanked || prev.gapDollars !== gapDollars)
+      ) {
+        const samePeriod = !!prev && prev.periodKey === result.period.key;
         snapshots.push({
           donorId: u.donorId, ranking, periodKey: result.period.key, asOfDate: day,
-          rank: cur.rank, totalRanked: cur.totalRanked, points: cur.points,
+          rank: cur.rank, totalRanked: cur.totalRanked, points: cur.points, gapDollars,
+          prevRank: samePeriod ? (prev!.rank !== cur.rank ? prev!.rank : prev!.prevRank) : null,
         });
       }
     }
@@ -577,7 +590,10 @@ async function persistDay(
       for (const s of out.snapshots) {
         await tx.rankSnapshot.upsert({
           where: { donorId_ranking_periodKey: { donorId: s.donorId, ranking: s.ranking, periodKey: s.periodKey } },
-          update: { asOfDate: s.asOfDate, rank: s.rank, totalRanked: s.totalRanked, points: s.points },
+          update: {
+            asOfDate: s.asOfDate, rank: s.rank, totalRanked: s.totalRanked, points: s.points,
+            gapDollars: s.gapDollars, prevRank: s.prevRank,
+          },
           create: s,
         });
       }
@@ -590,7 +606,10 @@ async function persistDay(
   for (const a of out.awards) world.awardKeys.add(awardKey(a));
   for (const n of stored) world.notifKeys.add(n.dedupeKey);
   for (const s of out.snapshots) {
-    world.snapshots.set(`${s.donorId}|${s.ranking}`, { periodKey: s.periodKey, rank: s.rank, totalRanked: s.totalRanked, points: s.points });
+    world.snapshots.set(`${s.donorId}|${s.ranking}`, {
+      periodKey: s.periodKey, rank: s.rank, totalRanked: s.totalRanked, points: s.points,
+      gapDollars: s.gapDollars, prevRank: s.prevRank,
+    });
   }
   for (const n of stored) {
     const donorId = world.users.find((u) => u.id === n.userId)?.donorId;

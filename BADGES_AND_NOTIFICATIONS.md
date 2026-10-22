@@ -47,10 +47,10 @@ Tier = current monthly recurring amount (annual subscriptions ÷ 12; multiple su
 
 | ID | EN | ES | Rule |
 |---|---|---|---|
-| B-S1 | 3-Month Streak | Racha de 3 Meses | 3 consecutive months |
-| B-S2 | 6-Month Streak | Racha de 6 Meses | 6 consecutive months |
-| B-S3 | 12-Month Streak | Racha de 12 Meses | 12 consecutive months |
-| B-S4 | 24-Month Streak | Racha de 24 Meses | 24 consecutive months |
+| B-S1 | 3-Month Streak | Racha de 3 meses | 3 consecutive months |
+| B-S2 | 6-Month Streak | Racha de 6 meses | 6 consecutive months |
+| B-S3 | 12-Month Streak | Racha de 12 meses | 12 consecutive months |
+| B-S4 | 24-Month Streak | Racha de 24 meses | 24 consecutive months |
 
 A failed charge starts a 7-day grace period before the streak breaks.
 

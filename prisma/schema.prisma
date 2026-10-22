@@ -123,6 +123,10 @@ model RankSnapshot {
   rank        Int
   totalRanked Int
   points      Float
+  /// Dollars (one-time) needed to pass the donor directly above; null for #1. Shown on the rank cards.
+  gapDollars  Int?
+  /// Rank before the last change inside this period (the card's up/down arrow); null if it never changed.
+  prevRank    Int?
   donor       Donor  @relation(fields: [donorId], references: [id])
 
   @@unique([donorId, ranking, periodKey])
