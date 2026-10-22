@@ -227,3 +227,53 @@ export function recurringSummary(
     graceDaysLeft: inGrace.length ? Math.min(...inGrace.map((s) => s.graceDaysLeft ?? 0)) : null,
   };
 }
+
+/**
+ * Dates on which the donor came back after a recurring lapse ("Back in the Game", B-X1), oldest first.
+ * A lapse is either a failed charge whose grace period expired unfixed, or a cancellation followed by
+ * more than a failure window without any recurring charge (a plan change, where the next plan charges
+ * on the cancellation day, is not a lapse). The comeback is the first successful recurring charge
+ * after the lapse.
+ */
+export function reactivationDates(
+  subscriptions: SubscriptionRec[],
+  donations: DonationRec[],
+  asOf: string,
+  settings: EngineSettings,
+): string[] {
+  const successes = donations
+    .filter((d) => d.subscriptionId && d.status === "succeeded" && d.date <= asOf)
+    .map((d) => d.date)
+    .sort();
+  const firstSuccessOnOrAfter = (date: string) => successes.find((d) => d >= date) ?? null;
+  const comebacks = new Set<string>();
+
+  for (const sub of subscriptions) {
+    if (sub.startDate > asOf) continue;
+
+    // Failures that were not fixed inside their grace period: the first success after the expiry is the comeback.
+    const unresolved: string[] = [];
+    let open: string | null = null;
+    for (const row of rowsOf(sub.id, donations, asOf)) {
+      if (row.status === "failed") {
+        open ??= row.date;
+        continue;
+      }
+      if (open && row.date >= addDays(open, settings.graceDays)) unresolved.push(open);
+      open = null;
+    }
+    if (open) unresolved.push(open);
+    for (const failedOn of unresolved) {
+      const expiry = addDays(failedOn, settings.graceDays);
+      if (expiry > asOf) continue;
+      const back = firstSuccessOnOrAfter(expiry);
+      if (back) comebacks.add(back);
+    }
+
+    if (sub.endDate && sub.endDate <= asOf) {
+      const next = firstSuccessOnOrAfter(sub.endDate);
+      if (next && daysBetween(sub.endDate, next) > settings.failureWindowDaysMonthly) comebacks.add(next);
+    }
+  }
+  return [...comebacks].sort();
+}
