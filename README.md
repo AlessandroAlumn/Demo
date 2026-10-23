@@ -117,7 +117,9 @@ Next.js 16 differs from older versions: see `AGENTS.md` before changing framewor
 - **The demo looks wrong or stale:** Reset demo (Settings), or `npm run demo -- reset`.
 - **Everything is empty or errors after changing the data:** `rm prisma/dev.db && npm run setup`.
 - **Share cards show no emoji:** the card generator fetches emoji images, so it needs internet access the first time.
-- **A test run reports "no tests" for every file:** it has happened once or twice right after `setup`; run `npm test` again.
+- **A test run reports "no tests" for every file** ("Vitest failed to find the current suite"): an intermittent glitch seen a few
+  times while building this (cause unknown; the next run passes). `npm test` waits and retries by itself and keeps the evidence in
+  `.vitest-failure.log`. If it ever fails *every* retry, run `npm test` again and send that log along.
 
 ## Not in this prototype
 
