@@ -1,5 +1,8 @@
 {
-  "Brand": { "name": "AlumnUSB", "tagline": "Juntos por la Universidad Simón Bolívar" },
+  "Brand": {
+    "name": "AlumnUSB",
+    "tagline": "Juntos por la Universidad Simón Bolívar"
+  },
   "Header": {
     "demo": "DEMO · hoy es {date}",
     "language": "Idioma",
@@ -12,7 +15,9 @@
     "notifications": "Notificaciones",
     "markAllRead": "Marcar todo como leído",
     "noNotifications": "Aún no tienes notificaciones.",
-    "seeAll": "Ver toda la actividad"
+    "seeAll": "Ver toda la actividad",
+    "matching": "Matching gifts",
+    "profile": "Perfil"
   },
   "Login": {
     "title": "Iniciar sesión",
@@ -171,7 +176,10 @@
       "method": "Método",
       "status": "Estado"
     },
-    "status": { "succeeded": "Recibida", "failed": "Fallida" },
+    "status": {
+      "succeeded": "Recibida",
+      "failed": "Fallida"
+    },
     "recurring": "Recurrente"
   },
   "Badges": {
@@ -211,7 +219,8 @@
       "reactivate": "Reactivar",
       "learnHow": "Cómo hacerlo",
       "profile": "Ir a mi perfil",
-      "badges": "Ver mis insignias"
+      "badges": "Ver mis insignias",
+      "share": "Compartir"
     },
     "N1": "¡Ganaste {badge}!",
     "N3": "Te faltan {remaining} para {badge}.",
@@ -254,5 +263,91 @@
   "Admin": {
     "title": "Administración",
     "placeholder": "El backoffice está en construcción."
+  },
+  "Share": {
+    "title": "Comparte tu insignia",
+    "subtitle": "Muestra lo que lograste e invita a otros a donar.",
+    "back": "Volver a la insignia",
+    "earnedOn": "Ganada el {date}",
+    "preview": "Vista previa",
+    "messageTitle": "Tu mensaje",
+    "message": "Acabo de ganar {badge} como donante de @alumn_usb 🎓 ¿Crees que puedes superarme? Dona aquí →",
+    "copy": "Copiar texto",
+    "copied": "¡Copiado!",
+    "shareOn": "Compartir en",
+    "networks": {
+      "whatsapp": "WhatsApp",
+      "x": "X",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn"
+    },
+    "instagram": "Descargar para historia de Instagram",
+    "instagramHint": "Descarga la imagen y publícala en tu historia.",
+    "downloadCard": "Descargar imagen",
+    "yourLink": "Tu enlace",
+    "aliasNote": "La tarjeta muestra tu alias ({alias}). Puedes cambiarlo en tu perfil.",
+    "notEarned": "Aún no has ganado esta insignia, así que no hay nada que compartir.",
+    "card": {
+      "label": "INSIGNIA GANADA",
+      "by": "por {alias}",
+      "cta": "Dona en alumnusb.org",
+      "tagline": "Juntos por la USB"
+    }
+  },
+  "Matching": {
+    "title": "Matching gifts",
+    "subtitle": "Muchas empresas igualan lo que donan sus empleados, así que tu aporte puede duplicarse.",
+    "howTitle": "Cómo funciona",
+    "step1": "Dona a AlumnUSB.",
+    "step2": "Envía una solicitud de igualación desde el portal de donaciones de tu empresa, a menudo Benevity o Double the Donation.",
+    "step3": "Tu empresa iguala tu aporte y ganas la insignia Doble Impacto.",
+    "searchTitle": "¿Tu empresa iguala donaciones?",
+    "placeholder": "Busca tu empresa…",
+    "hint": "Escribe al menos 2 letras.",
+    "matches": "Iguala donaciones",
+    "noMatch": "No iguala donaciones",
+    "via": "vía {platform}",
+    "none": "Sin resultados para “{query}”. Pregunta a tu equipo de RR. HH. si tu empresa usa Double the Donation o Benevity.",
+    "mockNote": "Lista de demostración con empresas ficticias.",
+    "moreTitle": "Más información",
+    "ddt": "Double the Donation: busca tu empresa",
+    "benevity": "Benevity: qué es y cómo funciona",
+    "hr": "Mucha gente no sabe que su empresa tiene un programa de igualación. Pregunta en RR. HH. o busca “Benevity” en el portal de beneficios para empleados.",
+    "badgesTitle": "Tus insignias de Doble Impacto",
+    "noBadges": "Aún no hay donaciones igualadas."
+  },
+  "Profile": {
+    "title": "Mi perfil",
+    "subtitle": "Tus preferencias, las cuentas que sigues y tu enlace de invitación.",
+    "saved": "Guardado",
+    "username": "Usuario",
+    "language": "Idioma preferido",
+    "languages": {
+      "es": "Español",
+      "en": "English"
+    },
+    "alias": "Alias",
+    "aliasHelp": "Se muestra en tus tarjetas para compartir en lugar de tu usuario. Déjalo vacío para usar {username}.",
+    "aliasPlaceholder": "p. ej. Promoción '98",
+    "privacy": "Privacidad",
+    "optOut": "Ocultar la gamificación (rankings, insignias y actividad)",
+    "optOutHelp": "Si lo activas solo verás tus donaciones y este perfil, y dejarás de recibir notificaciones de ranking e insignias. Tus donaciones nunca se ven afectadas.",
+    "save": "Guardar cambios",
+    "socialTitle": "Síguenos",
+    "socialHelp": "Sigue a AlumnUSB y avísanos. Un miembro del equipo lo confirma y ganas una insignia y puntos de participación.",
+    "follow": "Seguir",
+    "iFollowed": "Ya lo sigo",
+    "tryAgain": "Ya lo sigo (intentar de nuevo)",
+    "status": {
+      "pending": "Esperando confirmación",
+      "approved": "Confirmado",
+      "rejected": "No pudimos confirmarlo"
+    },
+    "referralTitle": "Invita a tus amigos",
+    "referralHelp": "Comparte tu enlace personal. Cuando un amigo que invitaste haga su primera donación, ganas la insignia Reclutador.",
+    "referralLink": "Tu enlace de invitación",
+    "copy": "Copiar enlace",
+    "copied": "¡Copiado!",
+    "invited": "{n, plural, one {# amigo ha donado} other {# amigos han donado}} con tu enlace."
   }
 }

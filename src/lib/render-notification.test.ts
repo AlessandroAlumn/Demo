@@ -129,6 +129,20 @@ describe("renderNotification", () => {
     );
   });
 
+  it("offers to share earned badges (N1, N9, N16) with the right badge and period", () => {
+    const env = envFor("en");
+    expect(renderNotification(row("N1", { badgeId: "B-S2", periodKey: "" }), env).cta).toEqual({
+      label: "Share", href: "/share/B-S2?period=",
+    });
+    expect(renderNotification(row("N9", { badgeId: "B-C2", periodKey: "2026-07", amountUsd: 5 }), env).cta?.href).toBe(
+      "/share/B-C2?period=2026-07",
+    );
+    expect(renderNotification(row("N16", { tier: "gold", badgeIds: ["B-R1", "B-R2", "B-R3"] }), env).cta?.href).toBe(
+      "/share/B-R3?period=",
+    );
+    expect(renderNotification(row("N18", SAMPLES.N18), env).cta).toBeUndefined();
+  });
+
   it("marks read notifications and survives unknown posts and types", () => {
     const read = renderNotification({ ...row("N31", {}), readAt: "2026-08-21" }, envFor("en"));
     expect(read.read).toBe(true);

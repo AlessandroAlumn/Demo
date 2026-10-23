@@ -6,6 +6,11 @@ import type { NotificationType } from "./notification-types";
 
 export const DONATE_URL = "https://alumnusb.org/dona";
 
+const TIER_BADGE: Record<string, string> = {
+  recurring: "B-R1", silver: "B-R2", gold: "B-R3", platinum: "B-R4", diamond: "B-R5",
+};
+const shareHref = (badgeId: string, periodKey: string) => `/share/${badgeId}?period=${encodeURIComponent(periodKey)}`;
+
 export type Translator = (key: string, values?: Record<string, string | number>) => string;
 
 export type PostView = {
@@ -92,7 +97,7 @@ export function renderNotification(row: NotificationRow, env: RenderEnv): Render
     case "N1": {
       const badgeId = str(p.badgeId);
       return out(env.badgeIcon(badgeId), "good", t("N1", { badge: env.badgeName(badgeId, str(p.periodKey)) }), {
-        cta: { label: t("cta.badges"), href: `/badges/${badgeId}` },
+        cta: { label: t("cta.share"), href: shareHref(badgeId, str(p.periodKey)) },
       });
     }
     case "N3": {
@@ -118,6 +123,7 @@ export function renderNotification(row: NotificationRow, env: RenderEnv): Render
     case "N9":
       return out("🏆", "good", t("N9", { kind: str(p.badgeId) === "B-C1" ? "week" : "month" }), {
         detail: num(p.amountUsd) > 0 ? t("N9detail", { amount: env.money(num(p.amountUsd)) }) : undefined,
+        cta: { label: t("cta.share"), href: shareHref(str(p.badgeId), str(p.periodKey)) },
       });
     case "N10":
       return out("🚀", "good", t("N10", { month: env.monthLabel(str(p.month)), gained: num(p.gained) }));
@@ -139,7 +145,9 @@ export function renderNotification(row: NotificationRow, env: RenderEnv): Render
     case "N15":
       return out("✅", "good", p.streakRestored ? t("N15restored") : t("N15new"));
     case "N16":
-      return out("🔁", "good", t("N16", { tier: env.tierName(str(p.tier)) }));
+      return out("🔁", "good", t("N16", { tier: env.tierName(str(p.tier)) }), {
+        cta: TIER_BADGE[str(p.tier)] ? { label: t("cta.share"), href: shareHref(TIER_BADGE[str(p.tier)], "") } : undefined,
+      });
     case "N17":
       return out("💡", "info", t("N17", { gap: env.money(num(p.gapUsd)), tier: env.tierName(str(p.nextTier)) }), { cta: donate });
     case "N18":

@@ -689,7 +689,8 @@ export async function advanceMonths(db: PrismaClient, months: number): Promise<P
 }
 
 /**
- * Wipes everything derived (automatic badge awards, snapshots, notifications, claims, shares, first logins),
+ * Wipes everything derived (automatic badge awards, snapshots, notifications, claims, shares, first logins,
+ * aliases and opt-outs),
  * sets the clock to the launch date and re-runs the baseline day. Manual awards (Ambassador) and admin
  * content (posts) are kept.
  */
@@ -702,7 +703,8 @@ export async function resetDemo(db: PrismaClient): Promise<ProcessResult> {
       await tx.socialClaim.deleteMany();
       await tx.shareEvent.deleteMany();
       await tx.badgeAward.deleteMany({ where: { source: "auto" } });
-      await tx.user.updateMany({ data: { firstLoginAt: null } });
+      // Preferences are part of the demo state too: back to no alias, gamification on.
+      await tx.user.updateMany({ data: { firstLoginAt: null, alias: null, gamificationOptOut: false } });
       await saveSetting(tx, "simulatedToday", settings.launchDate);
       await saveSetting(tx, "lastProcessedDate", "");
     });

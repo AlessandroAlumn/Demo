@@ -262,6 +262,10 @@ describe("reset", () => {
     expect(await db.socialClaim.count()).toBe(0);
     expect(await db.shareEvent.count()).toBe(0);
     expect(await db.user.count({ where: { firstLoginAt: { not: null } } })).toBe(0);
+    await db.user.update({ where: { username: "User3" }, data: { alias: "Promo 98", gamificationOptOut: true } });
+    await resetDemo(db);
+    const user3 = await db.user.findUniqueOrThrow({ where: { username: "User3" } });
+    expect({ alias: user3.alias, optOut: user3.gamificationOptOut }).toEqual({ alias: null, optOut: false });
     expect(await db.post.count()).toBe(4);
     expect(await db.badgeAward.count({ where: { source: "manual" } })).toBe(1);
     expect(await db.badgeAward.count({ where: { badgeId: "B-SO1" } })).toBe(0);

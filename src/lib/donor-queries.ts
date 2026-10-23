@@ -232,3 +232,106 @@ export async function getBadgeCatalog(donorId: string, userId: string | null, lo
     earnedCount: items.filter((i) => i.earned.length > 0).length,
   };
 }
+
+// ---------- one earned badge (share page and share card) ----------
+
+export type EarnedBadge = {
+  id: string;
+  icon: string;
+  tier: string | null;
+  name: string;
+  description: string;
+  awardedAt: string;
+  periodKey: string;
+};
+
+/** A badge the donor has earned (the given period, or the latest one), or null if they have not. */
+export async function getEarnedBadge(
+  donorId: string,
+  badgeId: string,
+  periodKey: string | undefined,
+  locale: string,
+): Promise<EarnedBadge | null> {
+  const def = await db.badgeDefinition.findUnique({ where: { id: badgeId } });
+  if (!def) return null;
+  const awards = await db.badgeAward.findMany({ where: { donorId, badgeId }, orderBy: { awardedAt: "desc" } });
+  const award = periodKey === undefined ? awards[0] : awards.find((a) => a.periodKey === periodKey);
+  if (!award) return null;
+
+  let campaignTitle = award.periodKey;
+  if (def.id === "B-P9") {
+    const post = await db.post.findFirst({ where: { campaign: award.periodKey } });
+    if (post) campaignTitle = pick(locale, post.titleEs, post.titleEn);
+  }
+  const name = pick(locale, def.nameEs, def.nameEn)
+    .replace("{year}", award.periodKey)
+    .replace("{campaign}", campaignTitle);
+  return {
+    id: def.id,
+    icon: def.icon,
+    tier: def.tier,
+    name,
+    description: pick(locale, def.descEs, def.descEn),
+    awardedAt: award.awardedAt,
+    periodKey: award.periodKey,
+  };
+}
+
+// ---------- profile ----------
+
+export type ClaimStatus = "none" | "pending" | "approved" | "rejected";
+
+export type ProfileData = {
+  username: string;
+  alias: string | null;
+  locale: string;
+  optOut: boolean;
+  referralCode: string | null;
+  claims: Record<string, ClaimStatus>;
+  referredDonors: number;
+};
+
+export async function getProfile(userId: string, donorId: string): Promise<ProfileData> {
+  const today = await getToday();
+  const user = await db.user.findUniqueOrThrow({ where: { id: userId } });
+  const claims = await db.socialClaim.findMany({ where: { userId }, orderBy: [{ createdAt: "desc" }, { id: "desc" }] });
+  const latest: Record<string, ClaimStatus> = {};
+  for (const c of claims) {
+    // an approved claim always wins; otherwise the most recent one
+    if (latest[c.network] === "approved") continue;
+    if (!latest[c.network] || c.status === "approved") latest[c.network] = c.status as ClaimStatus;
+  }
+
+  const referred = await db.donor.findMany({ where: { referredBy: donorId }, select: { id: true } });
+  const donated = referred.length
+    ? await db.donation.groupBy({
+        by: ["donorId"],
+        where: { donorId: { in: referred.map((r) => r.id) }, status: "succeeded", date: { lte: today } },
+      })
+    : [];
+
+  return {
+    username: user.username,
+    alias: user.alias,
+    locale: user.locale,
+    optOut: user.gamificationOptOut,
+    referralCode: user.referralCode,
+    claims: latest,
+    referredDonors: donated.length,
+  };
+}
+
+// ---------- matching gifts ----------
+
+export type Company = { name: string; matches: boolean; platform: string | null };
+
+/** The mock company list generated with the data (fictional companies). */
+export async function loadCompanies(): Promise<Company[]> {
+  const { readFile } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  try {
+    return JSON.parse(await readFile(join(process.cwd(), "data", "companies.json"), "utf8")) as Company[];
+  } catch {
+    return [];
+  }
+}

@@ -16,7 +16,11 @@ export default async function BadgeDetailPage({ params }: PageProps<"/[locale]/b
   if (user.role === "admin") redirectTo("/admin", locale);
   if (user.gamificationOptOut) redirectTo("/donations", locale);
 
-  const [t, tCategories] = await Promise.all([getTranslations("Badges"), getTranslations("Categories")]);
+  const [t, tCategories, tShare] = await Promise.all([
+    getTranslations("Badges"),
+    getTranslations("Categories"),
+    getTranslations("Share"),
+  ]);
   const f = makeFormatters(locale);
   const catalog = await getBadgeCatalog(user.donorId!, user.id, locale);
   const badge = catalog.items.find((b) => b.id === badgeId);
@@ -57,9 +61,17 @@ export default async function BadgeDetailPage({ params }: PageProps<"/[locale]/b
             <h2 className="mt-6 text-lg text-brand-black">{t("history")}</h2>
             <ul className="mt-2 divide-y divide-gray-100 rounded-xl border border-gray-100">
               {badge.earned.map((e) => (
-                <li key={e.periodKey} className="flex justify-between gap-3 px-4 py-2.5 text-sm">
+                <li key={e.periodKey} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
                   <span className="font-medium">{e.name}</span>
-                  <span className="text-gray-400">{f.date(e.awardedAt)}</span>
+                  <span className="flex items-center gap-4 text-gray-400">
+                    {f.date(e.awardedAt)}
+                    <Link
+                      href={`/share/${badge.id}?period=${encodeURIComponent(e.periodKey)}`}
+                      className="font-accent font-semibold text-brand-blue hover:underline"
+                    >
+                      {tShare("title")} ↗
+                    </Link>
+                  </span>
                 </li>
               ))}
             </ul>

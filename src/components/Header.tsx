@@ -57,11 +57,21 @@ export default async function Header() {
                   </Link>
                 </>
               )}
+              {isDonor && (
+                <>
+                  <Link href="/matching" className={navLink}>
+                    {t("matching")}
+                  </Link>
+                  <Link href="/profile" className={navLink}>
+                    {t("profile")}
+                  </Link>
+                </>
+              )}
             </nav>
           )}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="ml-auto flex items-center gap-3">
           <span className="hidden rounded-full bg-brand-yellow px-3 py-1 font-accent text-xs font-semibold text-brand-black sm:inline">
             {t("demo", { date: today })}
           </span>
@@ -83,7 +93,7 @@ export default async function Header() {
           {user && (
             <form action={logoutAction} className="flex items-center gap-2">
               <input type="hidden" name="locale" value={locale} />
-              <span className="hidden font-accent text-sm text-gray-200 md:inline">{user.username}</span>
+              <span className="hidden font-accent text-sm text-gray-200 lg:inline">{user.username}</span>
               <button
                 type="submit"
                 className="rounded-full border border-gray-400 px-3 py-1 font-accent text-xs font-semibold hover:bg-gray-500"

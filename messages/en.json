@@ -1,5 +1,8 @@
 {
-  "Brand": { "name": "AlumnUSB", "tagline": "Together for Universidad Simón Bolívar" },
+  "Brand": {
+    "name": "AlumnUSB",
+    "tagline": "Together for Universidad Simón Bolívar"
+  },
   "Header": {
     "demo": "DEMO · today is {date}",
     "language": "Language",
@@ -12,7 +15,9 @@
     "notifications": "Notifications",
     "markAllRead": "Mark all as read",
     "noNotifications": "No notifications yet.",
-    "seeAll": "See all activity"
+    "seeAll": "See all activity",
+    "matching": "Matching gifts",
+    "profile": "Profile"
   },
   "Login": {
     "title": "Sign in",
@@ -171,7 +176,10 @@
       "method": "Method",
       "status": "Status"
     },
-    "status": { "succeeded": "Received", "failed": "Failed" },
+    "status": {
+      "succeeded": "Received",
+      "failed": "Failed"
+    },
     "recurring": "Recurring"
   },
   "Badges": {
@@ -211,7 +219,8 @@
       "reactivate": "Reactivate",
       "learnHow": "Learn how",
       "profile": "Go to my profile",
-      "badges": "See my badges"
+      "badges": "See my badges",
+      "share": "Share"
     },
     "N1": "You earned {badge}!",
     "N3": "You're {remaining} away from {badge}.",
@@ -254,5 +263,91 @@
   "Admin": {
     "title": "Admin",
     "placeholder": "The backoffice is under construction."
+  },
+  "Share": {
+    "title": "Share your badge",
+    "subtitle": "Show what you've achieved and invite others to give.",
+    "back": "Back to the badge",
+    "earnedOn": "Earned {date}",
+    "preview": "Preview",
+    "messageTitle": "Your message",
+    "message": "I just earned {badge} as a donor of @alumn_usb 🎓 Think you can beat me? Donate here →",
+    "copy": "Copy text",
+    "copied": "Copied!",
+    "shareOn": "Share on",
+    "networks": {
+      "whatsapp": "WhatsApp",
+      "x": "X",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn"
+    },
+    "instagram": "Download for Instagram story",
+    "instagramHint": "Download the image and post it in your story.",
+    "downloadCard": "Download image",
+    "yourLink": "Your link",
+    "aliasNote": "The card shows your alias ({alias}). You can change it in your profile.",
+    "notEarned": "You haven't earned this badge yet, so there is nothing to share.",
+    "card": {
+      "label": "BADGE EARNED",
+      "by": "by {alias}",
+      "cta": "Donate at alumnusb.org",
+      "tagline": "Together for USB"
+    }
+  },
+  "Matching": {
+    "title": "Matching gifts",
+    "subtitle": "Many employers match what their employees donate, so your gift can double.",
+    "howTitle": "How it works",
+    "step1": "Donate to AlumnUSB.",
+    "step2": "Send a matching request through your employer's giving portal, often Benevity or Double the Donation.",
+    "step3": "Your employer matches your gift and you earn the Double Impact badge.",
+    "searchTitle": "Does your company match?",
+    "placeholder": "Search for your company…",
+    "hint": "Type at least 2 letters.",
+    "matches": "Matches donations",
+    "noMatch": "Doesn't match donations",
+    "via": "via {platform}",
+    "none": "No result for “{query}”. Ask your HR team whether your company uses Double the Donation or Benevity.",
+    "mockNote": "Demo list with fictional companies.",
+    "moreTitle": "Find out more",
+    "ddt": "Double the Donation: search your company",
+    "benevity": "Benevity: what it is and how it works",
+    "hr": "Many people don't know their company has a matching program. Ask HR, or look for “Benevity” in your employee benefits portal.",
+    "badgesTitle": "Your Double Impact badges",
+    "noBadges": "No matched gifts yet."
+  },
+  "Profile": {
+    "title": "My profile",
+    "subtitle": "Your preferences, the accounts you follow and your invitation link.",
+    "saved": "Saved",
+    "username": "Username",
+    "language": "Preferred language",
+    "languages": {
+      "es": "Español",
+      "en": "English"
+    },
+    "alias": "Alias",
+    "aliasHelp": "Shown on your share cards instead of your username. Leave it empty to use {username}.",
+    "aliasPlaceholder": "e.g. Class of '98",
+    "privacy": "Privacy",
+    "optOut": "Hide the gamification (rankings, badges and activity)",
+    "optOutHelp": "If you turn this on you only see your donations and this profile, and you stop receiving ranking and badge notifications. Your donations are never affected.",
+    "save": "Save changes",
+    "socialTitle": "Follow us",
+    "socialHelp": "Follow AlumnUSB and let us know. A team member confirms it, and you earn a badge and engagement points.",
+    "follow": "Follow",
+    "iFollowed": "I followed",
+    "tryAgain": "I followed (try again)",
+    "status": {
+      "pending": "Waiting for confirmation",
+      "approved": "Confirmed",
+      "rejected": "We couldn't confirm it"
+    },
+    "referralTitle": "Invite friends",
+    "referralHelp": "Share your personal link. When a friend you invited makes their first donation, you earn the Recruiter badge.",
+    "referralLink": "Your invitation link",
+    "copy": "Copy link",
+    "copied": "Copied!",
+    "invited": "{n, plural, one {# friend has donated} other {# friends have donated}} through your link."
   }
 }

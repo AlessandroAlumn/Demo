@@ -68,6 +68,28 @@ for (const locale of ["es", "en"]) {
   const feed = await page(cookie, `/${locale}/feed`);
   check(feed.status === 200 && strip(feed.text).includes(words.feed), "feed page", String(feed.status));
 
+  const matching = await page(cookie, `/${locale}/matching`);
+  const matchingTitle = locale === "es" ? "¿Tu empresa iguala donaciones?" : "Does your company match?";
+  check(matching.status === 200 && strip(matching.text).includes(matchingTitle), "matching page", String(matching.status));
+
+  const profile = await page(cookie, `/${locale}/profile`);
+  check(profile.status === 200 && strip(profile.text).includes(locale === "es" ? "Mi perfil" : "My profile"), "profile page", String(profile.status));
+  check(strip(profile.text).includes("https://alumnusb.org/dona?ref="), "profile shows the referral link");
+
+  const share = await page(cookie, `/${locale}/share/B-M0?period=`);
+  check(share.status === 200 && strip(share.text).includes(locale === "es" ? "Comparte tu insignia" : "Share your badge"), "share page for an earned badge", String(share.status));
+  const unearned = await page(cookie, `/${locale}/share/B-C2`);
+  check(unearned.status === 200 && !unearned.text.includes("/api/share-card/"), "an unearned badge shows no card");
+
+  const card = await fetch(`${base}/api/share-card/B-M0?locale=${locale}&format=card&period=`, { headers: { Cookie: cookie } });
+  const bytes = new Uint8Array(await card.arrayBuffer());
+  const dims = bytes.length > 24 ? new DataView(bytes.buffer).getUint32(16) + "x" + new DataView(bytes.buffer).getUint32(20) : "";
+  check(card.status === 200 && card.headers.get("content-type") === "image/png" && dims === "1200x630", "share card is a 1200x630 PNG", `${card.status} ${dims}`);
+  const cardAnon = await fetch(`${base}/api/share-card/B-M0`);
+  check(cardAnon.status === 401, "the card API needs a signed-in user", String(cardAnon.status));
+  const cardOther = await fetch(`${base}/api/share-card/B-C2?locale=${locale}`, { headers: { Cookie: cookie } });
+  check(cardOther.status === 404, "the card API refuses a badge you have not earned", String(cardOther.status));
+
   const admin = await page(cookie, `/${locale}/admin`);
   check(admin.status === 307 && (admin.location ?? "").endsWith(`/${locale}/dashboard`), "a donor is kept out of /admin", `${admin.status} ${admin.location}`);
 }
