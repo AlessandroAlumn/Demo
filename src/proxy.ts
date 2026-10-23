@@ -36,5 +36,5 @@ export default function proxy(request: NextRequest) {
 
 export const config = {
   // Everything except Next's static files and the public brand images / icon.
-  matcher: ["/((?!_next/static|_next/image|_vercel|brand/|favicon.ico|icon.png).*)"],
+  matcher: ["/((?!_next/static|_next/image|_vercel|brand/|favicon.ico|icon.svg).*)"],
 };
