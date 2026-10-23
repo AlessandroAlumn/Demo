@@ -59,3 +59,15 @@ export function isoWeekKey(date: string): string {
   const week = 1 + Math.round((d.getTime() - firstThursday.getTime()) / (7 * 86_400_000));
   return `${isoYear}-W${pad(week)}`;
 }
+
+/** Monday and Sunday of an ISO week key ("2026-W30" -> 2026-07-20 .. 2026-07-26), or null if malformed. */
+export function isoWeekRange(key: string): { from: string; to: string } | null {
+  const m = /^(\d{4})-W(\d{2})$/.exec(key);
+  if (!m) return null;
+  const jan4 = toDate(`${m[1]}-01-04`);
+  const mondayOfWeek1 = new Date(jan4);
+  mondayOfWeek1.setUTCDate(jan4.getUTCDate() - ((jan4.getUTCDay() + 6) % 7));
+  const from = new Date(mondayOfWeek1);
+  from.setUTCDate(mondayOfWeek1.getUTCDate() + (Number(m[2]) - 1) * 7);
+  return { from: toIso(from), to: addDays(toIso(from), 6) };
+}

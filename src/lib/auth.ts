@@ -44,3 +44,10 @@ export async function getCurrentUser() {
 }
 
 export type CurrentUser = NonNullable<Awaited<ReturnType<typeof getCurrentUser>>>;
+
+/** For server actions: the signed-in admin, or an error. Pages are guarded by the layout; actions must check too. */
+export async function assertAdmin() {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "admin") throw new Error("Forbidden");
+  return user;
+}

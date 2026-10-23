@@ -262,7 +262,390 @@
   },
   "Admin": {
     "title": "Administración",
-    "placeholder": "El backoffice está en construcción."
+    "nav": {
+      "overview": "Resumen",
+      "import": "Importar",
+      "donors": "Donantes",
+      "rankings": "Rankings",
+      "badges": "Insignias",
+      "claims": "Solicitudes de seguimiento",
+      "posts": "Publicaciones",
+      "atRisk": "Recurrentes en riesgo",
+      "settings": "Ajustes"
+    },
+    "subStatus": {
+      "active": "Activa",
+      "grace": "Período de gracia",
+      "inactive": "Inactiva",
+      "cancelled": "Cancelada",
+      "not_started": "No iniciada"
+    },
+    "time": {
+      "title": "Máquina del tiempo",
+      "today": "Fecha de la demo: {date}",
+      "ends": "Los datos de la demo terminan el {date}.",
+      "day": "+1 día",
+      "week": "+1 semana",
+      "month": "+1 mes",
+      "jump": "Ir a",
+      "go": "Ir",
+      "reset": "Reiniciar demo",
+      "resetConfirm": "¿Reiniciar la demo? Se borran las notificaciones, las insignias automáticas, las solicitudes, los compartidos, los alias y las exclusiones, y el reloj vuelve a la fecha de lanzamiento.",
+      "running": "Procesando…",
+      "ran": "{days, plural, one {Se procesó # día} other {Se procesaron # días}} hasta el {to}: {awards} insignias nuevas, {notifications} notificaciones.",
+      "errors": {
+        "invalidDate": "Escribe una fecha válida.",
+        "notForward": "El tiempo solo avanza. Usa Reiniciar demo para empezar de nuevo.",
+        "atEnd": "La demo llegó al final de sus datos."
+      }
+    },
+    "overview": {
+      "title": "Resumen",
+      "subtitle": "Cómo va el programa en la fecha de la demo.",
+      "kpis": {
+        "raised": "Total recaudado",
+        "month": "Recaudado este mes",
+        "donors": "Donantes",
+        "donorsMonth": "Donantes que donan este mes",
+        "recurring": "Donantes recurrentes activos",
+        "mrr": "Ingreso recurrente mensual",
+        "atRisk": "Recurrentes en riesgo",
+        "badges": "Insignias otorgadas",
+        "claims": "Solicitudes de seguimiento pendientes"
+      },
+      "chart": "Recaudado por mes"
+    },
+    "import": {
+      "title": "Importar datos",
+      "subtitle": "Sube el archivo de donaciones (acumulativo: todas las donaciones hasta hoy) y el de suscripciones (una foto actual). Verás qué cambiaría antes de guardar nada.",
+      "donationsFile": "CSV de donaciones",
+      "subscriptionsFile": "CSV de suscripciones",
+      "optional": "Puedes dejar cualquiera de los dos archivos sin subir.",
+      "preview": "Vista previa",
+      "previewTitle": "Vista previa: todavía no se ha guardado nada",
+      "doneTitle": "Importación terminada",
+      "confirm": "Importar ahora",
+      "cancel": "Cancelar",
+      "donations": "Donaciones",
+      "subscriptions": "Suscripciones",
+      "rows": "{total} filas, {valid} válidas",
+      "counts": "{new} nuevas · {updated} actualizadas · {unchanged} sin cambios",
+      "removed": "{n} eliminadas (no están en la nueva foto)",
+      "donors": "Donantes: {new} nuevos, {updated} actualizados",
+      "problems": "{n, plural, one {# problema} other {# problemas}}",
+      "skipNote": "Las filas con problemas se omiten; las válidas se importan.",
+      "showing": "Mostrando las primeras {shown} de {total}.",
+      "line": "línea {row}",
+      "errors": {
+        "noFiles": "Elige al menos un archivo CSV.",
+        "expired": "La vista previa caducó. Sube los archivos de nuevo.",
+        "failed": "La importación falló. Revisa los archivos e inténtalo de nuevo."
+      },
+      "last": "Última importación",
+      "lastAt": "{date} (fecha de la demo {demo})",
+      "never": "Aún no se ha importado nada desde aquí.",
+      "after": "Las filas nuevas del historial no crean notificaciones retroactivas. Usa Reiniciar demo para recalcular todo desde los datos."
+    },
+    "donors": {
+      "title": "Donantes",
+      "search": "Busca por nombre, correo o ID",
+      "searchButton": "Buscar",
+      "columns": {
+        "id": "ID",
+        "name": "Nombre",
+        "email": "Correo",
+        "first": "Primera donación",
+        "user": "Usuario"
+      },
+      "empty": "No se encontraron donantes.",
+      "back": "Todos los donantes",
+      "lifetime": "Total donado",
+      "thisYear": "Este año",
+      "donationsCount": "{n, plural, one {# donación} other {# donaciones}}",
+      "account": "Cuenta",
+      "noUser": "Este donante no tiene cuenta de acceso.",
+      "username": "Usuario",
+      "alias": "Alias",
+      "optOut": "Gamificación oculta",
+      "firstLogin": "Primer ingreso",
+      "referredBy": "Referido por",
+      "positions": "Posiciones",
+      "notRanked": "Sin posición",
+      "rankLine": "#{rank} de {total} · {points} pts · Top {pct}%",
+      "subs": "Suscripciones",
+      "subColumns": {
+        "amount": "Monto",
+        "frequency": "Frecuencia",
+        "start": "Inicio",
+        "end": "Fin",
+        "status": "Estado"
+      },
+      "frequency": {
+        "monthly": "Mensual",
+        "annual": "Anual"
+      },
+      "graceLeft": "{n, plural, one {Queda # día} other {Quedan # días}}",
+      "streakTier": "Racha de {streak} meses · {tier}",
+      "badges": "Insignias",
+      "noBadges": "Aún no tiene insignias.",
+      "sourceAuto": "automática",
+      "sourceManual": "manual",
+      "revoke": "Revocar",
+      "revokeNote": "Solo se pueden revocar las insignias manuales: una automática se otorgaría de nuevo.",
+      "award": "Otorgar una insignia",
+      "awardBadge": "Insignia",
+      "awardPeriod": "Período (opcional)",
+      "awardPeriodHelp": "Para insignias repetibles: un año, un mes como 2026-08 o el código de una campaña.",
+      "awardButton": "Otorgar",
+      "awarded": "Insignia otorgada. Se avisó al donante.",
+      "awardErrors": {
+        "unknown_badge": "Insignia desconocida.",
+        "unknown_donor": "Donante desconocido.",
+        "already_awarded": "El donante ya tiene esta insignia para ese período."
+      },
+      "history": "Donaciones",
+      "historyColumns": {
+        "date": "Fecha",
+        "amount": "Monto",
+        "program": "Programa",
+        "method": "Método",
+        "status": "Estado"
+      },
+      "showingLast": "Mostrando las últimas {shown} de {total}."
+    },
+    "rankings": {
+      "title": "Rankings",
+      "subtitle": "Tablas completas con nombres. Los donantes solo ven su propia posición.",
+      "tabs": {
+        "monthly": "Mensual",
+        "yearly": "Anual",
+        "alltime": "Histórico"
+      },
+      "period": "Período",
+      "sort": "Ordenar por",
+      "byPoints": "Puntos de impacto",
+      "byDollars": "Dólares",
+      "columns": {
+        "rank": "#",
+        "donor": "Donante",
+        "points": "Puntos",
+        "dollars": "Dólares"
+      },
+      "showing": "Los {shown} primeros de {total} donantes en el ranking",
+      "more": "Mostrar 200",
+      "empty": "Nadie está en el ranking de este período.",
+      "winners": "Ganadores de la semana y del mes",
+      "winnerColumns": {
+        "kind": "Premio",
+        "period": "Período",
+        "donor": "Donante",
+        "amount": "Donó",
+        "date": "Otorgado"
+      },
+      "kinds": {
+        "week": "Donante de la Semana",
+        "month": "Donante del Mes"
+      },
+      "noWinners": "Aún no hay ganadores: se deciden al cerrar cada semana o mes."
+    },
+    "badges": {
+      "title": "Insignias",
+      "subtitle": "Edita textos, íconos y umbrales. Los cambios en una regla se aplican a los días que faltan por procesar.",
+      "columns": {
+        "badge": "Insignia",
+        "category": "Categoría",
+        "rule": "Regla",
+        "awards": "Otorgadas",
+        "rarity": "Rareza",
+        "status": "Estado"
+      },
+      "active": "Activa",
+      "inactive": "Oculta",
+      "manual": "solo manual",
+      "edit": "Editar",
+      "back": "Todas las insignias",
+      "editTitle": "Editar insignia {id}",
+      "nameEs": "Nombre (español)",
+      "nameEn": "Nombre (inglés)",
+      "descEs": "Descripción (español)",
+      "descEn": "Descripción (inglés)",
+      "icon": "Ícono (emoji)",
+      "activeLabel": "Activa (se muestra y se otorga)",
+      "thresholds": "Umbrales",
+      "noThresholds": "Esta insignia no tiene umbrales que editar.",
+      "placeholdersNote": "{year} y {campaign} en un nombre se reemplazan por el año o la campaña de la insignia.",
+      "save": "Guardar insignia",
+      "saved": "Guardado",
+      "fields": {
+        "usd": "Monto (USD)",
+        "months": "Meses",
+        "years": "Años",
+        "n": "Top N",
+        "pct": "Top %",
+        "count": "Cantidad",
+        "tier": "Nivel",
+        "program": "Programa",
+        "network": "Red"
+      },
+      "ruleSummary": "{type}",
+      "errors": {
+        "required": "Obligatorio",
+        "icon": "Usa un solo emoji"
+      }
+    },
+    "claims": {
+      "title": "Solicitudes de seguimiento",
+      "subtitle": "Los donantes dicen que siguen a AlumnUSB en una red. Compruébalo y aprueba (insignia, +5 puntos) o rechaza.",
+      "pending": "Pendientes de revisión",
+      "reviewed": "Decisiones recientes",
+      "empty": "No hay solicitudes pendientes.",
+      "columns": {
+        "donor": "Donante",
+        "network": "Red",
+        "requested": "Solicitada",
+        "decision": "Decisión"
+      },
+      "approve": "Aprobar",
+      "reject": "Rechazar",
+      "approved": "Aprobada",
+      "rejected": "Rechazada"
+    },
+    "posts": {
+      "title": "Publicaciones y campañas",
+      "subtitle": "Contenido bilingüe para el feed de los donantes. Una campaña añade meta, fechas y una barra de progreso.",
+      "newTitle": "Nueva publicación",
+      "kind": "Tipo",
+      "kinds": {
+        "news": "Noticia",
+        "campaign": "Campaña"
+      },
+      "titleEs": "Título (español)",
+      "titleEn": "Título (inglés)",
+      "bodyEs": "Texto (español)",
+      "bodyEn": "Texto (inglés)",
+      "campaignSlug": "Código de la campaña",
+      "campaignSlugHelp": "Las donaciones con este código cuentan para la meta, p. ej. emergencia-sismo-2026.",
+      "goal": "Meta (USD)",
+      "start": "Fecha de inicio",
+      "end": "Fecha de fin",
+      "publishedAt": "Publicar el",
+      "publishedAtHelp": "Déjalo vacío para usar la fecha de la demo. Las publicaciones de hoy o anteriores avisan a los donantes de inmediato.",
+      "preview": "Vista previa",
+      "previewEs": "Español",
+      "previewEn": "Inglés",
+      "publish": "Publicar",
+      "created": "Publicada",
+      "existing": "Publicaciones existentes",
+      "columns": {
+        "date": "Fecha",
+        "type": "Tipo",
+        "title": "Título",
+        "campaign": "Campaña"
+      },
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar esta publicación y sus notificaciones?",
+      "none": "Aún no hay publicaciones.",
+      "errors": {
+        "required": "Obligatorio",
+        "too long (max 120)": "Demasiado largo (máx. 120 caracteres)",
+        "invalid date": "Fecha no válida",
+        "must be after the start": "Debe ser posterior al inicio",
+        "must be above 0": "Debe ser mayor que 0",
+        "use lowercase letters, numbers and dashes": "Usa minúsculas, números y guiones",
+        "a campaign with this slug already exists": "Ya existe una campaña con este código"
+      }
+    },
+    "atRisk": {
+      "title": "Donantes recurrentes en riesgo",
+      "subtitle": "Donantes recurrentes cuyos pagos están fallando, con lo que pueden perder. Una buena lista para que el equipo les dé seguimiento.",
+      "export": "Exportar CSV",
+      "empty": "Ningún donante recurrente está en riesgo ahora.",
+      "columns": {
+        "donor": "Donante",
+        "email": "Correo",
+        "status": "Estado",
+        "amount": "Al mes",
+        "streak": "Racha en juego",
+        "left": "Gracia restante",
+        "since": "Falla desde",
+        "last": "Último pago"
+      },
+      "statuses": {
+        "grace": "Período de gracia",
+        "inactive": "Inactiva"
+      },
+      "streakMonths": "{n, plural, one {# mes} other {# meses}}",
+      "expired": "vencida",
+      "summary": "{grace} en período de gracia · {inactive} inactivas"
+    },
+    "settings": {
+      "title": "Ajustes",
+      "subtitle": "Todos los números que usa el motor. Los cambios se aplican a los días que faltan por procesar.",
+      "clock": "Reloj de la demo",
+      "readOnly": "Fecha de lanzamiento {launch} · fecha de la demo {today}. El reloj se mueve con la máquina del tiempo.",
+      "save": "Guardar ajustes",
+      "saved": "Guardado: {changed}",
+      "nothing": "No hubo cambios.",
+      "json": "JSON",
+      "keys": {
+        "points": {
+          "label": "Puntos de impacto",
+          "help": "Puntos por dólar (único, recurrente, igualado), el bono de racha y los puntos de participación con sus topes mensuales."
+        },
+        "recurringTiers": {
+          "label": "Niveles recurrentes",
+          "help": "Monto mensual mínimo (USD) de cada nivel recurrente."
+        },
+        "graceDays": {
+          "label": "Período de gracia (días)",
+          "help": "Días que se tienen para arreglar un pago fallido antes de que se reinicie la racha."
+        },
+        "failureWindowDaysMonthly": {
+          "label": "Ventana de falla mensual (días)",
+          "help": "Días sin un cobro exitoso antes de que un plan mensual se considere fallando."
+        },
+        "failureWindowDaysAnnual": {
+          "label": "Ventana de falla anual (días)",
+          "help": "Lo mismo para planes anuales."
+        },
+        "gapNudgeThresholdUsd": {
+          "label": "Umbral del aviso de distancia (USD)",
+          "help": "\"Estás a solo $X del #N\" se envía cuando la distancia es como máximo esta."
+        },
+        "gapNudgeCooldownDays": {
+          "label": "Espera del aviso de distancia (días)",
+          "help": "Días mínimos entre esos mensajes para el mismo ranking."
+        },
+        "rankDownCooldownDays": {
+          "label": "Espera de \"te pasaron\" (días)",
+          "help": "Días mínimos entre notificaciones de \"alguien te pasó\". 0 envía cada cambio."
+        },
+        "nextMilestoneNudgePct": {
+          "label": "Aviso de cercanía (%)",
+          "help": "Qué tan cerca de una insignia o nivel (en %) para enviar un aviso."
+        },
+        "lapsedMonths": {
+          "label": "Donante inactivo (meses)",
+          "help": "Meses sin donar antes del mensaje \"te extrañamos\"."
+        },
+        "matchingReminderMonthDay": {
+          "label": "Fecha del recordatorio de matching",
+          "help": "Día del año (MM-DD) para recordar a todos el aporte de su empresa."
+        },
+        "earlyAdopterDays": {
+          "label": "Ventana de Pionero (días)",
+          "help": "Un primer ingreso dentro de estos días desde el lanzamiento gana la insignia Pionero."
+        },
+        "orgMilestones": {
+          "label": "Hitos de la organización (USD)",
+          "help": "Totales que activan \"¡juntos superamos $X!\". Una lista JSON en orden creciente."
+        },
+        "impactEquivalences": {
+          "label": "Equivalencias de impacto",
+          "help": "Líneas de \"≈\" de ejemplo: dólares por unidad y la clave de su texto. La primera se usa en las notificaciones."
+        }
+      }
+    }
   },
   "Share": {
     "title": "Comparte tu insignia",

@@ -37,6 +37,26 @@ async function page(cookie, path) {
 
 const strip = (html) => html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ").replace(/&#x27;/g, "'").replace(/&amp;/g, "&").replace(/\s+/g, " ");
 
+if (username === "admin") {
+  for (const locale of ["es", "en"]) {
+    console.log(`\n== admin / ${locale} ==`);
+    const cookie = await login(locale);
+    const pages = ["", "/import", "/donors", "/donors/D0003", "/rankings", "/rankings?ranking=yearly&sort=dollars", "/badges", "/badges/B-M2", "/claims", "/posts", "/at-risk", "/settings"];
+    for (const path of pages) {
+      const res = await page(cookie, `/${locale}/admin${path}`);
+      check(res.status === 200 && strip(res.text).includes(locale === "es" ? "Recurrentes en riesgo" : "At-risk recurring"), `admin${path || " (overview)"}`, String(res.status));
+    }
+    check((await page(cookie, `/${locale}/admin/donors/D9999`)).status === 404, "an unknown donor is a 404");
+    check((await page(cookie, `/${locale}/admin/badges/B-NOPE`)).status === 404, "an unknown badge is a 404");
+    const dash = await page(cookie, `/${locale}/dashboard`);
+    check(dash.status === 307 && (dash.location ?? "").endsWith(`/${locale}/admin`), "an admin is sent from /dashboard to /admin", `${dash.status} ${dash.location}`);
+    const csv = await fetch(`${base}/api/admin/at-risk`, { headers: { Cookie: cookie } });
+    check(csv.status === 200 && (csv.headers.get("content-type") ?? "").startsWith("text/csv"), "the at-risk CSV downloads", String(csv.status));
+  }
+  console.log(failures ? `\n${failures} check(s) failed` : "\nAll checks passed");
+  process.exit(failures ? 1 : 0);
+}
+
 for (const locale of ["es", "en"]) {
   console.log(`\n== ${username} / ${locale} ==`);
   const cookie = await login(locale);

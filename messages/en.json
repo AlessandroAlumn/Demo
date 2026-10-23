@@ -262,7 +262,390 @@
   },
   "Admin": {
     "title": "Admin",
-    "placeholder": "The backoffice is under construction."
+    "nav": {
+      "overview": "Overview",
+      "import": "Import",
+      "donors": "Donors",
+      "rankings": "Rankings",
+      "badges": "Badges",
+      "claims": "Follow claims",
+      "posts": "Posts",
+      "atRisk": "At-risk recurring",
+      "settings": "Settings"
+    },
+    "subStatus": {
+      "active": "Active",
+      "grace": "Grace period",
+      "inactive": "Inactive",
+      "cancelled": "Cancelled",
+      "not_started": "Not started"
+    },
+    "time": {
+      "title": "Time machine",
+      "today": "Demo date: {date}",
+      "ends": "The demo data ends on {date}.",
+      "day": "+1 day",
+      "week": "+1 week",
+      "month": "+1 month",
+      "jump": "Jump to",
+      "go": "Go",
+      "reset": "Reset demo",
+      "resetConfirm": "Reset the demo? Notifications, automatic badges, claims, shares, aliases and opt-outs are deleted and the clock goes back to the launch date.",
+      "running": "Processing…",
+      "ran": "Processed {days, plural, one {# day} other {# days}} up to {to}: {awards} new badges, {notifications} notifications.",
+      "errors": {
+        "invalidDate": "Enter a valid date.",
+        "notForward": "Time only moves forward. Use Reset demo to start over.",
+        "atEnd": "The demo has reached the end of its data."
+      }
+    },
+    "overview": {
+      "title": "Overview",
+      "subtitle": "Where the program stands on the demo date.",
+      "kpis": {
+        "raised": "Total raised",
+        "month": "Raised this month",
+        "donors": "Donors",
+        "donorsMonth": "Donors giving this month",
+        "recurring": "Active recurring donors",
+        "mrr": "Monthly recurring revenue",
+        "atRisk": "At-risk recurring donors",
+        "badges": "Badges awarded",
+        "claims": "Follow claims waiting"
+      },
+      "chart": "Raised per month"
+    },
+    "import": {
+      "title": "Import data",
+      "subtitle": "Upload the donations file (cumulative: every donation so far) and the subscriptions file (a fresh snapshot). You see what would change before anything is saved.",
+      "donationsFile": "Donations CSV",
+      "subscriptionsFile": "Subscriptions CSV",
+      "optional": "Either file can be left out.",
+      "preview": "Preview",
+      "previewTitle": "Preview: nothing has been saved yet",
+      "doneTitle": "Import finished",
+      "confirm": "Import now",
+      "cancel": "Cancel",
+      "donations": "Donations",
+      "subscriptions": "Subscriptions",
+      "rows": "{total} rows, {valid} valid",
+      "counts": "{new} new · {updated} updated · {unchanged} unchanged",
+      "removed": "{n} removed (not in the new snapshot)",
+      "donors": "Donors: {new} new, {updated} updated",
+      "problems": "{n, plural, one {# problem} other {# problems}}",
+      "skipNote": "Rows with problems are skipped; the valid rows are imported.",
+      "showing": "Showing the first {shown} of {total}.",
+      "line": "line {row}",
+      "errors": {
+        "noFiles": "Choose at least one CSV file.",
+        "expired": "The preview expired. Upload the files again.",
+        "failed": "The import failed. Check the files and try again."
+      },
+      "last": "Last import",
+      "lastAt": "{date} (demo date {demo})",
+      "never": "No import has been run from here yet.",
+      "after": "New history rows do not create notifications retroactively. Use Reset demo to recompute everything from the data."
+    },
+    "donors": {
+      "title": "Donors",
+      "search": "Search by name, email or ID",
+      "searchButton": "Search",
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "first": "First donation",
+        "user": "User"
+      },
+      "empty": "No donors found.",
+      "back": "All donors",
+      "lifetime": "Total donated",
+      "thisYear": "This year",
+      "donationsCount": "{n, plural, one {# donation} other {# donations}}",
+      "account": "Account",
+      "noUser": "This donor has no login account.",
+      "username": "Username",
+      "alias": "Alias",
+      "optOut": "Gamification hidden",
+      "firstLogin": "First login",
+      "referredBy": "Referred by",
+      "positions": "Positions",
+      "notRanked": "Not ranked",
+      "rankLine": "#{rank} of {total} · {points} pts · Top {pct}%",
+      "subs": "Subscriptions",
+      "subColumns": {
+        "amount": "Amount",
+        "frequency": "Frequency",
+        "start": "Start",
+        "end": "End",
+        "status": "Status"
+      },
+      "frequency": {
+        "monthly": "Monthly",
+        "annual": "Annual"
+      },
+      "graceLeft": "{n, plural, one {# day left} other {# days left}}",
+      "streakTier": "Streak {streak}-month · {tier}",
+      "badges": "Badges",
+      "noBadges": "No badges yet.",
+      "sourceAuto": "automatic",
+      "sourceManual": "manual",
+      "revoke": "Revoke",
+      "revokeNote": "Only manual badges can be revoked: an automatic one would be awarded again.",
+      "award": "Award a badge",
+      "awardBadge": "Badge",
+      "awardPeriod": "Period (optional)",
+      "awardPeriodHelp": "For repeatable badges: a year, a month like 2026-08, or a campaign slug.",
+      "awardButton": "Award",
+      "awarded": "Badge awarded. The donor was notified.",
+      "awardErrors": {
+        "unknown_badge": "Unknown badge.",
+        "unknown_donor": "Unknown donor.",
+        "already_awarded": "The donor already has this badge for that period."
+      },
+      "history": "Donations",
+      "historyColumns": {
+        "date": "Date",
+        "amount": "Amount",
+        "program": "Program",
+        "method": "Method",
+        "status": "Status"
+      },
+      "showingLast": "Showing the latest {shown} of {total}."
+    },
+    "rankings": {
+      "title": "Rankings",
+      "subtitle": "Full tables with names. Donors only ever see their own position.",
+      "tabs": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "alltime": "All-time"
+      },
+      "period": "Period",
+      "sort": "Order by",
+      "byPoints": "Impact Points",
+      "byDollars": "Dollars",
+      "columns": {
+        "rank": "#",
+        "donor": "Donor",
+        "points": "Points",
+        "dollars": "Dollars"
+      },
+      "showing": "Top {shown} of {total} ranked donors",
+      "more": "Show 200",
+      "empty": "Nobody is ranked in this period.",
+      "winners": "Winners of the week and the month",
+      "winnerColumns": {
+        "kind": "Award",
+        "period": "Period",
+        "donor": "Donor",
+        "amount": "Gave",
+        "date": "Awarded"
+      },
+      "kinds": {
+        "week": "Donor of the Week",
+        "month": "Donor of the Month"
+      },
+      "noWinners": "No winners yet: they are decided when each week or month closes."
+    },
+    "badges": {
+      "title": "Badges",
+      "subtitle": "Edit texts, icons and thresholds. Changes to a rule apply to the days still to be processed.",
+      "columns": {
+        "badge": "Badge",
+        "category": "Category",
+        "rule": "Rule",
+        "awards": "Awards",
+        "rarity": "Rarity",
+        "status": "Status"
+      },
+      "active": "Active",
+      "inactive": "Hidden",
+      "manual": "manual only",
+      "edit": "Edit",
+      "back": "All badges",
+      "editTitle": "Edit badge {id}",
+      "nameEs": "Name (Spanish)",
+      "nameEn": "Name (English)",
+      "descEs": "Description (Spanish)",
+      "descEn": "Description (English)",
+      "icon": "Icon (emoji)",
+      "activeLabel": "Active (shown and awarded)",
+      "thresholds": "Thresholds",
+      "noThresholds": "This badge has no thresholds to edit.",
+      "placeholdersNote": "{year} and {campaign} in a name are replaced by the award's year or campaign.",
+      "save": "Save badge",
+      "saved": "Saved",
+      "fields": {
+        "usd": "Amount (USD)",
+        "months": "Months",
+        "years": "Years",
+        "n": "Top N",
+        "pct": "Top %",
+        "count": "Count",
+        "tier": "Tier",
+        "program": "Program",
+        "network": "Network"
+      },
+      "ruleSummary": "{type}",
+      "errors": {
+        "required": "Required",
+        "icon": "Use a single emoji"
+      }
+    },
+    "claims": {
+      "title": "Follow claims",
+      "subtitle": "Donors say they follow AlumnUSB on a network. Check it, then approve (badge, +5 points) or reject.",
+      "pending": "Waiting for review",
+      "reviewed": "Recent decisions",
+      "empty": "No claims waiting.",
+      "columns": {
+        "donor": "Donor",
+        "network": "Network",
+        "requested": "Requested",
+        "decision": "Decision"
+      },
+      "approve": "Approve",
+      "reject": "Reject",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "posts": {
+      "title": "Posts and campaigns",
+      "subtitle": "Bilingual content for the donors' feed. A campaign adds a goal, dates and a progress bar.",
+      "newTitle": "New post",
+      "kind": "Type",
+      "kinds": {
+        "news": "News",
+        "campaign": "Campaign"
+      },
+      "titleEs": "Title (Spanish)",
+      "titleEn": "Title (English)",
+      "bodyEs": "Text (Spanish)",
+      "bodyEn": "Text (English)",
+      "campaignSlug": "Campaign slug",
+      "campaignSlugHelp": "Donations tagged with this slug count towards the goal, e.g. emergencia-sismo-2026.",
+      "goal": "Goal (USD)",
+      "start": "Start date",
+      "end": "End date",
+      "publishedAt": "Publish on",
+      "publishedAtHelp": "Leave empty for the demo date. Posts dated today or earlier notify donors right away.",
+      "preview": "Preview",
+      "previewEs": "Spanish",
+      "previewEn": "English",
+      "publish": "Publish",
+      "created": "Published",
+      "existing": "Existing posts",
+      "columns": {
+        "date": "Date",
+        "type": "Type",
+        "title": "Title",
+        "campaign": "Campaign"
+      },
+      "delete": "Delete",
+      "deleteConfirm": "Delete this post and its notifications?",
+      "none": "No posts yet.",
+      "errors": {
+        "required": "Required",
+        "too long (max 120)": "Too long (max 120 characters)",
+        "invalid date": "Invalid date",
+        "must be after the start": "Must be after the start date",
+        "must be above 0": "Must be above 0",
+        "use lowercase letters, numbers and dashes": "Use lowercase letters, numbers and dashes",
+        "a campaign with this slug already exists": "A campaign with this slug already exists"
+      }
+    },
+    "atRisk": {
+      "title": "At-risk recurring donors",
+      "subtitle": "Recurring donors whose payments are failing, with what they stand to lose. A good list for the team to follow up.",
+      "export": "Export CSV",
+      "empty": "No recurring donor is at risk right now.",
+      "columns": {
+        "donor": "Donor",
+        "email": "Email",
+        "status": "Status",
+        "amount": "Per month",
+        "streak": "Streak at stake",
+        "left": "Grace left",
+        "since": "Failing since",
+        "last": "Last payment"
+      },
+      "statuses": {
+        "grace": "Grace period",
+        "inactive": "Inactive"
+      },
+      "streakMonths": "{n, plural, one {# month} other {# months}}",
+      "expired": "expired",
+      "summary": "{grace} in grace period · {inactive} inactive"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Every number the engine uses. Changes apply to the days still to be processed.",
+      "clock": "Demo clock",
+      "readOnly": "Launch date {launch} · demo date {today}. The clock is moved with the time machine.",
+      "save": "Save settings",
+      "saved": "Saved: {changed}",
+      "nothing": "Nothing changed.",
+      "json": "JSON",
+      "keys": {
+        "points": {
+          "label": "Impact Points",
+          "help": "Points per dollar (one-time, recurring, matched), the streak bonus and the engagement points with their monthly caps."
+        },
+        "recurringTiers": {
+          "label": "Recurring tiers",
+          "help": "Minimum monthly amount (USD) for each recurring tier."
+        },
+        "graceDays": {
+          "label": "Grace period (days)",
+          "help": "Days a failed payment can be fixed before the streak resets."
+        },
+        "failureWindowDaysMonthly": {
+          "label": "Failure window, monthly (days)",
+          "help": "Days without a successful charge before a monthly plan counts as failing."
+        },
+        "failureWindowDaysAnnual": {
+          "label": "Failure window, annual (days)",
+          "help": "The same for annual plans."
+        },
+        "gapNudgeThresholdUsd": {
+          "label": "Gap nudge threshold (USD)",
+          "help": "\"You're only $X from #N\" is sent when the gap is at most this."
+        },
+        "gapNudgeCooldownDays": {
+          "label": "Gap nudge cooldown (days)",
+          "help": "Minimum days between those messages for the same ranking."
+        },
+        "rankDownCooldownDays": {
+          "label": "Rank-down cooldown (days)",
+          "help": "Minimum days between \"someone passed you\" notifications. 0 sends every move."
+        },
+        "nextMilestoneNudgePct": {
+          "label": "Near-milestone nudge (%)",
+          "help": "How close to a badge or tier (in %) before a nudge is sent."
+        },
+        "lapsedMonths": {
+          "label": "Lapsed donor (months)",
+          "help": "Months without a donation before the \"we miss you\" message."
+        },
+        "matchingReminderMonthDay": {
+          "label": "Matching reminder date",
+          "help": "Day of the year (MM-DD) to remind everyone about employer matching."
+        },
+        "earlyAdopterDays": {
+          "label": "Early Adopter window (days)",
+          "help": "A first login within this many days of launch earns the Early Adopter badge."
+        },
+        "orgMilestones": {
+          "label": "Organisation milestones (USD)",
+          "help": "Totals that trigger \"together we passed $X\". A JSON list in increasing order."
+        },
+        "impactEquivalences": {
+          "label": "Impact equivalences",
+          "help": "Placeholder \"≈\" lines: dollars per unit and its text key. The first one is used in notifications."
+        }
+      }
+    }
   },
   "Share": {
     "title": "Share your badge",

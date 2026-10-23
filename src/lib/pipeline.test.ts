@@ -11,6 +11,7 @@ import { computeRankings } from "./engine/rankings";
 import { referralEvents } from "./engine/points";
 import { buildHistories, type DonationRec, type EngagementEvent, type SubscriptionRec } from "./engine/types";
 import { runImport } from "./importer";
+import { awardBadgeManually, revokeManualAward } from "./manual-awards";
 import { getDemoState, processUntil, refreshToday, resetDemo } from "./pipeline";
 import { seedReferenceData, seedUsers } from "./seeding";
 import { loadSettings, toEngineSettings } from "./settings";
@@ -205,6 +206,44 @@ describe("UI-driven events", () => {
     expect(await db.badgeAward.findFirst({ where: { donorId: "D0013", badgeId: "B-SO7" } })).not.toBeNull();
     expect(await db.shareEvent.count()).toBe(1);
   }, 120_000);
+});
+
+describe("manual badge awards (backoffice)", () => {
+  it("awards by hand, tells the donor once, and refuses duplicates and unknowns", async () => {
+    expect(await awardBadgeManually(db, { donorId: "D0004", badgeId: "B-SO8" })).toEqual({ ok: true });
+    const told = (await feed("User4")).filter((r) => r.type === "N1" && (r.params as { badgeId: string }).badgeId === "B-SO8");
+    expect(told).toHaveLength(1);
+    expect(told[0].createdAt).toBe("2026-07-20");
+    expect(await awardBadgeManually(db, { donorId: "D0004", badgeId: "B-SO8" })).toEqual({ ok: false, error: "already_awarded" });
+    expect(await awardBadgeManually(db, { donorId: "D0004", badgeId: "B-NOPE" })).toEqual({ ok: false, error: "unknown_badge" });
+    expect(await awardBadgeManually(db, { donorId: "D9999", badgeId: "B-SO8" })).toEqual({ ok: false, error: "unknown_donor" });
+    // a repeatable badge can be awarded for different periods
+    expect(await awardBadgeManually(db, { donorId: "D0004", badgeId: "B-G1", periodKey: "2026" })).toEqual({ ok: true });
+    expect(await awardBadgeManually(db, { donorId: "D0004", badgeId: "B-G1", periodKey: "2025" })).toEqual({ ok: true });
+  });
+
+  it("does not tell an opted-out donor, and the daily pipeline leaves manual awards alone", async () => {
+    await db.user.update({ where: { username: "User19" }, data: { gamificationOptOut: true } });
+    expect(await awardBadgeManually(db, { donorId: "D0019", badgeId: "B-SO8" })).toEqual({ ok: true });
+    expect(await db.notification.count({ where: { user: { username: "User19" }, type: "N1" } })).toBe(0);
+    await db.user.update({ where: { username: "User19" }, data: { gamificationOptOut: false } });
+    const before = await db.badgeAward.count({ where: { source: "manual" } });
+    await refreshToday(db);
+    expect(await db.badgeAward.count({ where: { source: "manual" } })).toBe(before);
+  }, 120_000);
+
+  it("revokes manual awards only: an automatic one would simply be awarded again", async () => {
+    const manual = await db.badgeAward.findFirstOrThrow({ where: { donorId: "D0004", badgeId: "B-SO8" } });
+    expect(await revokeManualAward(db, manual.id)).toBe(true);
+    expect(await db.badgeAward.findUnique({ where: { id: manual.id } })).toBeNull();
+    const auto = await db.badgeAward.findFirstOrThrow({ where: { source: "auto" } });
+    expect(await revokeManualAward(db, auto.id)).toBe(false);
+    expect(await db.badgeAward.findUnique({ where: { id: auto.id } })).not.toBeNull();
+    expect(await revokeManualAward(db, "does-not-exist")).toBe(false);
+    for (const where of [{ donorId: "D0004" }, { donorId: "D0019" }]) {
+      for (const a of await db.badgeAward.findMany({ where: { ...where, source: "manual" } })) await revokeManualAward(db, a.id);
+    }
+  });
 });
 
 describe("later in the demo", () => {
