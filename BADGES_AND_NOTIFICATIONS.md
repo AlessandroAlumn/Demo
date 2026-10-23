@@ -200,7 +200,7 @@ Rank changes are checked **every time the data updates**.
 
 | ID | Trigger | Channel | Example |
 |---|---|---|---|
-| N27 | Admin post (news) | Feed | Bilingual post written in the backoffice |
+| N27 | Admin post (news) | Feed + Bell | Bilingual post written in the backoffice |
 | N28 | New campaign / challenge launched | Feed + Bell | "Earthquake relief: help us reach $20K by Dec 31" (progress bar) |
 | N29 🆕 | Campaign progress (50% / 100%) or ending soon | Feed | "We're at 80% of the goal, 5 days left!" |
 | N30 | Organization milestone | Feed | "Together we passed **$1M** raised! 🎓" |

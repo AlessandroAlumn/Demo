@@ -52,7 +52,7 @@ export const NOTIFICATION_META: Record<NotificationType, NotificationMeta> = {
   N24: m(true, true), //  { network, badgeId }
   N25: m(false, true), // { network }
   N26: m(true, true), //  { badgeUnlocked }
-  N27: m(true, false), // { postId }
+  N27: m(true, true), //  { postId }
   N28: m(true, true), //  { postId }
   N29: m(true, false), // { postId, kind: "pct" | "ending", pct?, daysLeft?, raisedUsd }
   N30: m(true, false), // { milestoneUsd }
