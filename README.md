@@ -121,6 +121,10 @@ Next.js 16 differs from older versions: see `AGENTS.md` before changing framewor
   times while building this (cause unknown; the next run passes). `npm test` waits and retries by itself and keeps the evidence in
   `.vitest-failure.log`. If it ever fails *every* retry, run `npm test` again and send that log along.
 
+## Putting it online
+
+See [DEPLOY.md](DEPLOY.md) (free Render service, with its limits).
+
 ## Not in this prototype
 
 Real login (planned: an email magic link matched to the donor's email), email / WhatsApp notifications, a real payment

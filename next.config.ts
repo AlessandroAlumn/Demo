@@ -8,6 +8,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const lowMemoryBuild = process.env.LOW_MEMORY_BUILD === "1";
 
 const nextConfig: NextConfig = {
+  // The type check (npm run typecheck) is what takes the extra memory at build time; skip it only in the small-server build.
+  typescript: { ignoreBuildErrors: lowMemoryBuild },
   experimental: {
     // The admin CSV upload goes through a server action: the default 1MB limit is too small for real exports.
     serverActions: { bodySizeLimit: "25mb" },
