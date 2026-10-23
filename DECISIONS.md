@@ -8,7 +8,7 @@ Choices made while building, where PLAN.md was silent or reality differed.
 - **Next.js 16.4.2** (latest stable) is "not the Next.js you know" (see AGENTS.md).
   - `middleware.ts` is now `proxy.ts`. The next-intl middleware lives in `src/proxy.ts`.
   - `create-next-app` enabled `cacheComponents` and `partialPrefetching`. **Disabled.** The app is per-user and dynamic (cookie sessions, DB reads), so static-shell caching adds friction and no benefit.
-  - Kept the scaffold's `turbopack.rules` entry for `*.css` (the `@tailwindcss/turbopack` loader). There is no PostCSS config, and without the rule `@theme` is not processed.
+  - Tailwind v4 now runs through `postcss.config.mjs` (`@tailwindcss/postcss`), which both Turbopack (dev) and webpack (the Render build) use. The earlier `turbopack.rules` loader only worked under Turbopack, so the webpack build on Render came out unstyled.
   - Page props use the global `PageProps<"/[locale]">` and `LayoutProps<"/[locale]">` helpers.
 - **Prisma pinned to 6.19.3** (client and CLI). `prisma@latest` is 8.0 release candidate; 7.x requires driver adapters and extra config. 6.x runs SQLite directly. Everything the plan needs works the same.
 - **Vitest 5**, `tsx` for scripts, `papaparse` for CSV.
