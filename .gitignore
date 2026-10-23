@@ -47,3 +47,6 @@ next-env.d.ts
 
 # written by scripts/run-tests.mjs when every test file fails to load
 .vitest-failure.log
+
+# the template for .env must be committed (npm run setup copies it)
+!.env.example
