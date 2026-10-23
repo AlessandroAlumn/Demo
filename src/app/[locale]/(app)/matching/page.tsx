@@ -1,9 +1,13 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import CompanySearch from "@/components/CompanySearch";
 import { Link, redirectTo } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { getBadgeCatalog, loadCompanies } from "@/lib/donor-queries";
 import { makeFormatters } from "@/lib/format";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Header", "matching");
 
 export default async function MatchingPage({ params }: PageProps<"/[locale]/matching">) {
   const { locale } = await params;

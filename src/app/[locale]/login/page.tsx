@@ -1,7 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import { redirectTo } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import LoginForm from "./LoginForm";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Login", "title");
 
 export default async function LoginPage({ params }: PageProps<"/[locale]/login">) {
   const { locale } = await params;

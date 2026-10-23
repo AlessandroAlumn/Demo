@@ -18,10 +18,11 @@ const ITEMS = [
 /** Section tabs of the backoffice; the current one is highlighted. */
 export default function AdminNav() {
   const t = useTranslations("Admin.nav");
+  const tAdmin = useTranslations("Admin");
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Admin" className="border-b border-gray-200 bg-brand-white">
+    <nav aria-label={tAdmin("title")} className="border-b border-gray-200 bg-brand-white">
       <ul className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4">
         {ITEMS.map((item) => {
           const active = "exact" in item ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);

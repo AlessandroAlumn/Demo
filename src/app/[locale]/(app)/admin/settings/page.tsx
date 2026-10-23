@@ -1,10 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import SettingsForm, { type SettingField } from "@/components/admin/SettingsForm";
 import TimeMachine from "@/components/admin/TimeMachine";
 import { db } from "@/lib/db";
 import { DEMO_END_DATE } from "@/lib/pipeline";
 import { loadSettings } from "@/lib/settings";
 import { EDITABLE_SETTINGS, settingToText } from "@/lib/settings-edit";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "settings");
 
 export default async function SettingsPage({ params }: PageProps<"/[locale]/admin/settings">) {
   const { locale } = await params;

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run",
+    "test": "node scripts/run-tests.mjs",
     "typecheck": "tsc --noEmit",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
@@ -18,7 +18,8 @@
     "seed:users": "tsx scripts/seed-users.ts",
     "demo": "tsx scripts/demo.ts",
     "inspect": "tsx scripts/inspect.ts",
-    "verify-coverage": "tsx scripts/verify-coverage.ts"
+    "verify-coverage": "tsx scripts/verify-coverage.ts",
+    "check:i18n": "tsx scripts/check-i18n.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

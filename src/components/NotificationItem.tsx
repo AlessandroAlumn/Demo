@@ -16,6 +16,7 @@ export default function NotificationItem({
   dateLabel,
   markReadLabel,
   progressLabel,
+  unreadLabel,
 }: {
   item: RenderedNotification;
   dateLabel: string;
@@ -23,6 +24,8 @@ export default function NotificationItem({
   markReadLabel?: string;
   /** Caption under a campaign progress bar, e.g. "$900 of $1,800". */
   progressLabel?: string;
+  /** Accessible name of the unread dot. */
+  unreadLabel?: string;
 }) {
   return (
     <li className={`relative flex gap-3 rounded-xl border p-4 ${TONES[item.tone]} ${item.read ? "opacity-80" : ""}`}>
@@ -32,7 +35,7 @@ export default function NotificationItem({
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium text-brand-black">
           {!item.read && (
-            <span className="mr-2 inline-block h-2 w-2 rounded-full bg-brand-blue align-middle" aria-label="unread" />
+            <span className="mr-2 inline-block h-2 w-2 rounded-full bg-brand-blue align-middle" aria-label={unreadLabel} />
           )}
           {item.text}
         </p>

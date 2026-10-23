@@ -37,7 +37,10 @@
     "donate": "Donar",
     "seeAll": "Ver todo",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "skipToContent": "Saltar al contenido",
+    "unread": "Sin leer",
+    "apply": "Aplicar"
   },
   "Programs": {
     "becas": "Becas estudiantiles",
@@ -297,7 +300,8 @@
         "invalidDate": "Escribe una fecha válida.",
         "notForward": "El tiempo solo avanza. Usa Reiniciar demo para empezar de nuevo.",
         "atEnd": "La demo llegó al final de sus datos."
-      }
+      },
+      "more": "Más controles"
     },
     "overview": {
       "title": "Resumen",
@@ -732,5 +736,13 @@
     "copy": "Copiar enlace",
     "copied": "¡Copiado!",
     "invited": "{n, plural, one {# amigo ha donado} other {# amigos han donado}} con tu enlace."
+  },
+  "Errors": {
+    "notFoundTitle": "Página no encontrada",
+    "notFoundText": "La página que buscas no existe o no tienes acceso a ella.",
+    "errorTitle": "Algo salió mal",
+    "errorText": "No pudimos cargar esta página. Inténtalo de nuevo y, si sigue pasando, avisa al equipo.",
+    "retry": "Intentar de nuevo",
+    "home": "Volver al inicio"
   }
 }

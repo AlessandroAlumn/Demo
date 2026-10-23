@@ -1,10 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import BadgeCard from "@/components/BadgeCard";
 import { redirectTo } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { getBadgeCatalog } from "@/lib/donor-queries";
 import { makeFormatters } from "@/lib/format";
 import { badgeLabels } from "@/lib/badge-labels";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Header", "badges");
 
 export default async function BadgesPage({ params }: PageProps<"/[locale]/badges">) {
   const { locale } = await params;

@@ -1,10 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import ConfirmButton from "@/components/admin/ConfirmButton";
 import PostComposer from "@/components/admin/PostComposer";
 import { getPosts } from "@/lib/admin-queries";
 import { getToday } from "@/lib/clock";
 import { makeFormatters } from "@/lib/format";
 import { deletePostAction } from "./actions";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "posts");
 
 export default async function PostsPage({ params }: PageProps<"/[locale]/admin/posts">) {
   const { locale } = await params;

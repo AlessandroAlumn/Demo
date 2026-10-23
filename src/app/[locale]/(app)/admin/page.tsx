@@ -1,8 +1,12 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import BarChart from "@/components/admin/BarChart";
 import { Link } from "@/i18n/navigation";
 import { getOverview } from "@/lib/admin-queries";
 import { makeFormatters } from "@/lib/format";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "overview");
 
 export default async function AdminOverviewPage({ params }: PageProps<"/[locale]/admin">) {
   const { locale } = await params;

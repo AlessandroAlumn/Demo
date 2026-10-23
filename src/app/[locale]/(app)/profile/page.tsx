@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import CopyButton from "@/components/CopyButton";
 import { redirectTo } from "@/i18n/navigation";
 import { SOCIAL_NETWORKS, SOCIAL_URLS } from "@/lib/constants";
@@ -6,6 +7,9 @@ import { getCurrentUser } from "@/lib/auth";
 import { getProfile } from "@/lib/donor-queries";
 import { ALIAS_MAX_LENGTH, referralLink } from "@/lib/share";
 import { claimFollowAction, savePreferencesAction } from "./actions";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Header", "profile");
 
 export default async function ProfilePage({ params, searchParams }: PageProps<"/[locale]/profile">) {
   const { locale } = await params;

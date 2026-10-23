@@ -32,7 +32,7 @@ export async function generateMetadata({
 }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Brand" });
-  return { title: t("name"), description: t("tagline") };
+  return { title: { default: t("name"), template: `%s · ${t("name")}` }, description: t("tagline") };
 }
 
 export default async function LocaleLayout({
@@ -42,6 +42,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const tCommon = await getTranslations({ locale, namespace: "Common" });
 
   return (
     <html
@@ -50,8 +51,16 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-brand-yellow focus:px-4 focus:py-2 focus:font-accent focus:font-semibold focus:text-brand-black"
+          >
+            {tCommon("skipToContent")}
+          </a>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -1,7 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import { Link } from "@/i18n/navigation";
 import { getAtRisk } from "@/lib/admin-queries";
 import { makeFormatters } from "@/lib/format";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "atRisk");
 
 export default async function AtRiskPage({ params }: PageProps<"/[locale]/admin/at-risk">) {
   const { locale } = await params;

@@ -1,8 +1,12 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import { getClaims } from "@/lib/admin-queries";
 import { SOCIAL_URLS, type SocialNetwork } from "@/lib/constants";
 import { makeFormatters } from "@/lib/format";
 import { reviewClaimAction } from "./actions";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "claims");
 
 export default async function ClaimsPage({ params }: PageProps<"/[locale]/admin/claims">) {
   const { locale } = await params;

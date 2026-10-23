@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import { Link } from "@/i18n/navigation";
 import { getRankingsPage } from "@/lib/admin-queries";
 import type { Ranking } from "@/lib/constants";
@@ -6,6 +7,9 @@ import { makeFormatters } from "@/lib/format";
 
 const RANKINGS: Ranking[] = ["monthly", "yearly", "alltime"];
 const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "rankings");
 
 export default async function RankingsPage({ params, searchParams }: PageProps<"/[locale]/admin/rankings">) {
   const { locale } = await params;
@@ -16,7 +20,7 @@ export default async function RankingsPage({ params, searchParams }: PageProps<"
   const sort = first(sp.sort) === "dollars" ? "dollars" : "points";
   const limit = first(sp.limit) === "200" ? 200 : 50;
 
-  const t = await getTranslations("Admin.rankings");
+  const [t, tCommon] = await Promise.all([getTranslations("Admin.rankings"), getTranslations("Common")]);
   const f = makeFormatters(locale);
   const data = await getRankingsPage({ ranking, period: first(sp.period), sort, limit });
   const periodOptions = ranking === "monthly" ? data.months : ranking === "yearly" ? data.years : [];
@@ -70,7 +74,7 @@ export default async function RankingsPage({ params, searchParams }: PageProps<"
             </select>
           </div>
           <button type="submit" className="rounded-lg bg-brand-yellow px-4 py-2 font-accent text-sm font-semibold text-brand-black hover:brightness-95">
-            OK
+            {tCommon("apply")}
           </button>
         </form>
 

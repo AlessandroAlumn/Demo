@@ -1,7 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import { Link } from "@/i18n/navigation";
 import { getBadgeAdminList } from "@/lib/admin-queries";
 import { ruleFields } from "@/lib/rule-edit";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "badges");
 
 export default async function AdminBadgesPage({ params }: PageProps<"/[locale]/admin/badges">) {
   const { locale } = await params;

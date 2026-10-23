@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import NotificationItem from "@/components/NotificationItem";
 import { Link, redirectTo } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth";
@@ -9,6 +10,9 @@ import { DONATE_URL } from "@/lib/render-notification";
 
 const RANKINGS = ["monthly", "yearly", "alltime"] as const;
 
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Header", "dashboard");
+
 export default async function DashboardPage({ params }: PageProps<"/[locale]/dashboard">) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -18,7 +22,7 @@ export default async function DashboardPage({ params }: PageProps<"/[locale]/das
   if (user.role === "admin") redirectTo("/admin", locale);
   if (user.gamificationOptOut) redirectTo("/donations", locale);
 
-  const [t, tr, tTiers, tImpact, tRankTitles, tRankNames, f] = await Promise.all([
+  const [t, tr, tTiers, tImpact, tRankTitles, tRankNames, f, tCommon] = await Promise.all([
     getTranslations("Dashboard"),
     getTranslations("Dashboard.ranks"),
     getTranslations("Tiers"),
@@ -26,6 +30,7 @@ export default async function DashboardPage({ params }: PageProps<"/[locale]/das
     getTranslations("RankingTitles"),
     getTranslations("Rankings"),
     Promise.resolve(makeFormatters(locale)),
+    getTranslations("Common"),
   ]);
   const donorId = user.donorId!;
   const [overview, catalog, activity] = await Promise.all([
@@ -257,6 +262,7 @@ export default async function DashboardPage({ params }: PageProps<"/[locale]/das
                 key={item.id}
                 item={item}
                 dateLabel={f.date(item.date)}
+                unreadLabel={tCommon("unread")}
                 progressLabel={
                   item.progress ? `${f.money(item.progress.raised)} / ${f.money(item.progress.goal)}` : undefined
                 }

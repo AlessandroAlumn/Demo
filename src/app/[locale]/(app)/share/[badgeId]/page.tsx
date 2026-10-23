@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import CopyButton from "@/components/CopyButton";
 import ShareButtons from "@/components/ShareButtons";
 import { Link, redirectTo } from "@/i18n/navigation";
@@ -6,6 +7,9 @@ import { getCurrentUser } from "@/lib/auth";
 import { getEarnedBadge } from "@/lib/donor-queries";
 import { makeFormatters } from "@/lib/format";
 import { referralLink, shareLinks } from "@/lib/share";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Share", "title");
 
 export default async function SharePage({ params, searchParams }: PageProps<"/[locale]/share/[badgeId]">) {
   const { locale, badgeId } = await params;

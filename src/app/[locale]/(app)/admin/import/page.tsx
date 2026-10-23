@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import ImportFlow from "@/components/admin/ImportFlow";
 import { db } from "@/lib/db";
 
@@ -7,6 +8,9 @@ type LastImport = {
   demoDate: string;
   report: { donations: { total: number; new: number; updated: number; unchanged: number }; subscriptions: { total: number }; donors: { new: number; updated: number } };
 };
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "import");
 
 export default async function ImportPage({ params }: PageProps<"/[locale]/admin/import">) {
   const { locale } = await params;

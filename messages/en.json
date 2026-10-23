@@ -37,7 +37,10 @@
     "donate": "Donate",
     "seeAll": "See all",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "skipToContent": "Skip to content",
+    "unread": "Unread",
+    "apply": "Apply"
   },
   "Programs": {
     "becas": "Student scholarships",
@@ -297,7 +300,8 @@
         "invalidDate": "Enter a valid date.",
         "notForward": "Time only moves forward. Use Reset demo to start over.",
         "atEnd": "The demo has reached the end of its data."
-      }
+      },
+      "more": "More controls"
     },
     "overview": {
       "title": "Overview",
@@ -732,5 +736,13 @@
     "copy": "Copy link",
     "copied": "Copied!",
     "invited": "{n, plural, one {# friend has donated} other {# friends have donated}} through your link."
+  },
+  "Errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundText": "The page you're looking for doesn't exist, or you don't have access to it.",
+    "errorTitle": "Something went wrong",
+    "errorText": "We couldn't load this page. Try again, and if it keeps happening let the team know.",
+    "retry": "Try again",
+    "home": "Back to the start"
   }
 }

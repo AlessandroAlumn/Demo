@@ -1,7 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import { Link } from "@/i18n/navigation";
 import { searchDonors } from "@/lib/admin-queries";
 import { makeFormatters } from "@/lib/format";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Admin.nav", "donors");
 
 export default async function DonorsPage({ params, searchParams }: PageProps<"/[locale]/admin/donors">) {
   const { locale } = await params;

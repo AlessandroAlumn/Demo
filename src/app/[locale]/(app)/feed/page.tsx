@@ -1,10 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { titleFor } from "@/lib/page-title";
 import NotificationItem from "@/components/NotificationItem";
 import { redirectTo } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { countUnread, loadNotifications } from "@/lib/feed";
 import { makeFormatters } from "@/lib/format";
 import { markAllReadAction } from "./actions";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: string }> }) =>
+  titleFor(params, "Header", "feed");
 
 export default async function FeedPage({ params }: PageProps<"/[locale]/feed">) {
   const { locale } = await params;
@@ -15,7 +19,7 @@ export default async function FeedPage({ params }: PageProps<"/[locale]/feed">) 
   if (user.role === "admin") redirectTo("/admin", locale);
   if (user.gamificationOptOut) redirectTo("/donations", locale);
 
-  const t = await getTranslations("Feed");
+  const [t, tCommon] = await Promise.all([getTranslations("Feed"), getTranslations("Common")]);
   const f = makeFormatters(locale);
   const [items, unread] = await Promise.all([
     loadNotifications(user.id, locale, { channel: "feed" }),
@@ -55,6 +59,7 @@ export default async function FeedPage({ params }: PageProps<"/[locale]/feed">) 
               item={item}
               dateLabel={f.date(item.date)}
               markReadLabel={t("markRead")}
+              unreadLabel={tCommon("unread")}
               progressLabel={item.progress ? t("campaignGoal", { raised: f.money(item.progress.raised), goal: f.money(item.progress.goal) }) : undefined}
             />
           ))}

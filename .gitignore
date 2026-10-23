@@ -44,3 +44,6 @@ next-env.d.ts
 /prisma/*.db
 /prisma/*.db-journal
 /.env
+
+# written by scripts/run-tests.mjs when every test file fails to load
+.vitest-failure.log
