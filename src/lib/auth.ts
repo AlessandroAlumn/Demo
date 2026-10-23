@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { db } from "./db";
 import {
   SESSION_COOKIE,
@@ -11,10 +11,15 @@ import {
 export async function createSession(user: { id: string; role: string }) {
   const token = signSession({ uid: user.id, role: user.role as SessionPayload["role"] });
   const store = await cookies();
+  // "Secure" only when the visitor really came over HTTPS (directly or behind a TLS-terminating proxy):
+  // some browsers refuse a Secure cookie on plain http://localhost, which would block a local `npm start`.
+  const requestHeaders = await headers();
+  const https =
+    requestHeaders.get("x-forwarded-proto") === "https" || (requestHeaders.get("origin") ?? "").startsWith("https://");
   store.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: https,
     path: "/",
     maxAge: SESSION_MAX_AGE_SECONDS,
   });
