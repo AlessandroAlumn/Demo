@@ -1,0 +1,28 @@
+# Render "Blueprint": creates the whole service from this repository (see DEPLOY.md).
+# Free web service: it sleeps after 15 minutes without visitors, and its files are NOT kept between restarts.
+# That suits this demo: the database is built at deploy time, so every wake-up starts again at 2026-07-01.
+
+services:
+  - type: web
+    name: alumnusb-gamification
+    runtime: node
+    plan: free
+    # devDependencies are needed on purpose: the build uses TypeScript, Tailwind and Prisma's CLI.
+    # `npm run setup` creates the database and imports the mock data; it ends up inside the deployed files.
+    buildCommand: npm ci --include=dev && npm run setup && npm run build
+    startCommand: npm start
+    # Open (no password) so Render can check the app is alive, even with the shared password on.
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      # Signs the login cookie. Render makes up a random one.
+      - key: SESSION_SECRET
+        generateValue: true
+      # The shared password for the demo, as user:password. Render asks for it when the Blueprint is created.
+      # Leave it out and the demo is open to anyone who has the address.
+      - key: DEMO_BASIC_AUTH
+        sync: false
+      # The free plan has 512 MB of memory; keep Node's heap well inside it.
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=400

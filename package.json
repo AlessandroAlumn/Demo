@@ -19,7 +19,8 @@
     "demo": "tsx scripts/demo.ts",
     "inspect": "tsx scripts/inspect.ts",
     "verify-coverage": "tsx scripts/verify-coverage.ts",
-    "check:i18n": "tsx scripts/check-i18n.ts"
+    "check:i18n": "tsx scripts/check-i18n.ts",
+    "check:case": "node scripts/check-import-case.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -45,5 +46,8 @@
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
+  },
+  "engines": {
+    "node": ">=20.19.0"
   }
 }
