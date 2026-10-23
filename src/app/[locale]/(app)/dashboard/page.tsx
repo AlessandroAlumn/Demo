@@ -84,25 +84,6 @@ export default async function DashboardPage({ params }: PageProps<"/[locale]/das
         <p className="mt-1 font-light text-gray-500">{t("subtitle")}</p>
       </header>
 
-      {/* totals */}
-      <section className="grid gap-4 sm:grid-cols-3" aria-label={t("totals.lifetime")}>
-        {(
-          [
-            ["lifetime", totals.lifetime],
-            ["thisYear", totals.thisYear],
-            ["thisMonth", totals.thisMonth],
-          ] as const
-        ).map(([key, value]) => (
-          <div key={key} className="rounded-2xl border border-gray-200 bg-brand-white p-5 shadow-sm">
-            <p className="font-accent text-xs font-semibold uppercase tracking-wide text-gray-400">{t(`totals.${key}`)}</p>
-            <p className="mt-1 font-serif text-3xl font-bold text-brand-black">{f.money(value)}</p>
-            {key === "lifetime" && totals.matched > 0 && (
-              <p className="mt-1 text-xs text-gray-400">{t("totals.matched", { amount: f.money(totals.matched) })}</p>
-            )}
-          </div>
-        ))}
-      </section>
-
       {/* private rankings */}
       <section>
         <h2 className="text-2xl text-brand-black">{tr("title")}</h2>
@@ -147,6 +128,25 @@ export default async function DashboardPage({ params }: PageProps<"/[locale]/das
             );
           })}
         </div>
+      </section>
+
+      {/* totals */}
+      <section className="grid gap-4 sm:grid-cols-3" aria-label={t("totals.lifetime")}>
+        {(
+          [
+            ["lifetime", totals.lifetime],
+            ["thisYear", totals.thisYear],
+            ["thisMonth", totals.thisMonth],
+          ] as const
+        ).map(([key, value]) => (
+          <div key={key} className="rounded-2xl border border-gray-200 bg-brand-white p-5 shadow-sm">
+            <p className="font-accent text-xs font-semibold uppercase tracking-wide text-gray-400">{t(`totals.${key}`)}</p>
+            <p className="mt-1 font-serif text-3xl font-bold text-brand-black">{f.money(value)}</p>
+            {key === "lifetime" && totals.matched > 0 && (
+              <p className="mt-1 text-xs text-gray-400">{t("totals.matched", { amount: f.money(totals.matched) })}</p>
+            )}
+          </div>
+        ))}
       </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
