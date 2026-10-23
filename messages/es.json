@@ -298,7 +298,8 @@
       "ran": "{days, plural, one {Se procesó # día} other {Se procesaron # días}} hasta el {to}: {awards} insignias nuevas, {notifications} notificaciones.",
       "errors": {
         "invalidDate": "Escribe una fecha válida.",
-        "notForward": "El tiempo solo avanza. Usa Reiniciar demo para empezar de nuevo.",
+        "notForward": "Esa ya es la fecha de la demo.",
+        "beforeStart": "Esa fecha es anterior al lanzamiento.",
         "atEnd": "La demo llegó al final de sus datos."
       },
       "more": "Más controles"

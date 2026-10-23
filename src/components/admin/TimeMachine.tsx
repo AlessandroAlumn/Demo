@@ -11,10 +11,12 @@ import { timeMachineAction, type TimeState } from "@/app/[locale]/(app)/admin/ac
  */
 export default function TimeMachine({
   today,
+  launchDate,
   endDate,
   variant,
 }: {
   today: string;
+  launchDate: string;
   endDate: string;
   variant: "bar" | "panel";
 }) {
@@ -81,7 +83,7 @@ export default function TimeMachine({
               id={`jump-${variant}`}
               type="date"
               name="date"
-              min={today}
+              min={launchDate}
               max={endDate}
               className="rounded-lg border border-gray-300 bg-brand-white px-2 py-1 text-sm text-brand-text"
             />

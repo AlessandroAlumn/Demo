@@ -9,18 +9,18 @@ import { DEMO_END_DATE, getDemoState, processUntil, resetDemo } from "@/lib/pipe
 export type TimeState =
   | { status: "idle" }
   | { status: "ran"; from: string | null; to: string; days: number; awards: number; notifications: number }
-  | { status: "error"; error: "invalidDate" | "notForward" | "atEnd" };
+  | { status: "error"; error: "invalidDate" | "notForward" | "beforeStart" | "atEnd" };
 
 const isIsoDate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`));
 
 /**
- * The time machine. `op` is day | week | month | jump | reset. Time only moves forward (reset starts over);
+ * The time machine. `op` is day | week | month | jump | reset. Time moves forward; a jump to an earlier day resets and replays;
  * the demo ends with the generated data (2026-12-31).
  */
 export async function timeMachineAction(_prev: TimeState, formData: FormData): Promise<TimeState> {
   await assertAdmin();
   const op = String(formData.get("op") ?? "");
-  const { today } = await getDemoState(db);
+  const { today, launchDate } = await getDemoState(db);
 
   if (op === "reset") {
     const r = await resetDemo(db);
@@ -37,7 +37,15 @@ export async function timeMachineAction(_prev: TimeState, formData: FormData): P
   else if (op === "jump") {
     target = String(formData.get("date") ?? "");
     if (!isIsoDate(target)) return { status: "error", error: "invalidDate" };
-    if (target <= today) return { status: "error", error: "notForward" };
+    if (target === today) return { status: "error", error: "notForward" };
+    if (target < today) {
+      // Going back means starting over and replaying up to that day (the pipeline only runs forward).
+      if (target < launchDate) return { status: "error", error: "beforeStart" };
+      const start = await resetDemo(db);
+      const replay = target > start.to ? await processUntil(db, target) : start;
+      revalidatePath("/", "layout");
+      return { status: "ran", from: start.from, to: replay.to, days: replay.days, awards: replay.awards, notifications: replay.notifications };
+    }
   } else return { status: "error", error: "invalidDate" };
 
   const r = await processUntil(db, target);

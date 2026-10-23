@@ -34,7 +34,7 @@ export default async function SettingsPage({ params }: PageProps<"/[locale]/admi
 
       <section>
         <h2 className="mb-3 text-2xl text-brand-black">{t("clock")}</h2>
-        <TimeMachine today={settings.simulatedToday} endDate={DEMO_END_DATE} variant="panel" />
+        <TimeMachine today={settings.simulatedToday} launchDate={settings.launchDate} endDate={DEMO_END_DATE} variant="panel" />
         <p className="mt-2 text-xs text-gray-400">{t("readOnly", { launch: settings.launchDate, today: settings.simulatedToday })}</p>
       </section>
 

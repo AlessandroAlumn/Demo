@@ -11,13 +11,13 @@ export default async function AdminLayout({ children, params }: LayoutProps<"/[l
   const user = await getCurrentUser();
   if (!user) redirectTo("/login", locale);
   if (user.role !== "admin") redirectTo("/dashboard", locale);
-  const { today } = await getDemoState(db);
+  const { today, launchDate } = await getDemoState(db);
 
   return (
     <>
       <AdminNav />
       <div className="pb-28">{children}</div>
-      <TimeMachine today={today} endDate={DEMO_END_DATE} variant="bar" />
+      <TimeMachine today={today} launchDate={launchDate} endDate={DEMO_END_DATE} variant="bar" />
     </>
   );
 }

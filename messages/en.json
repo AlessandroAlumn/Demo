@@ -298,7 +298,8 @@
       "ran": "Processed {days, plural, one {# day} other {# days}} up to {to}: {awards} new badges, {notifications} notifications.",
       "errors": {
         "invalidDate": "Enter a valid date.",
-        "notForward": "Time only moves forward. Use Reset demo to start over.",
+        "notForward": "That is already the demo date.",
+        "beforeStart": "That is before the launch date.",
         "atEnd": "The demo has reached the end of its data."
       },
       "more": "More controls"
