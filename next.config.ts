@@ -15,15 +15,6 @@ const nextConfig: NextConfig = {
     serverActions: { bodySizeLimit: "25mb" },
     ...(lowMemoryBuild ? { cpus: 1 } : {}),
   },
-  // Tailwind v4 is wired in through its Turbopack loader (no PostCSS config).
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
 };
 
 export default withNextIntl(nextConfig);
